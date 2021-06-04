@@ -13,7 +13,7 @@ class MainPage extends Abstract.Content
     
 }
 
- export function Render(cheeseList){
+ export function render(cheeseList){
     const before = `<ul class="products">`;
     const after = `</ul>`;
     let productsHTML = "";

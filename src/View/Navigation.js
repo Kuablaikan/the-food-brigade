@@ -1,6 +1,6 @@
 import * as Abstract from "/the-food-brigade/src/View/content.js";
 
- export function Render(){
+ export function render(){
     let param = Abstract.Content.getUrlParam();
 
     const before = `<ul class="centerBox"> `;
