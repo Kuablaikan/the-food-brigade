@@ -1,6 +1,10 @@
 export class Content {  
 
-    init(elementId)
+    init(element)
+    {
+        this.page = document.querySelector(element);
+    }
+    initById(elementId)
     {
         this.page = document.getElementById(elementId);
     }
@@ -8,12 +12,44 @@ export class Content {
     {
         this.page.innerHTML = " ";
     }
-    show(title, className, contentHTML)
+    show(title, className, htmlCode)
     {
-        this.page.innerHTML = `<h2>${title}</h2><div class=${className}>${contentHTML}</div>`;
+        this.page.innerHTML = `<h2>${title}</h2><div class=${className}>${htmlCode}</div>`;
+    }
+    addById(elementId, htmlCode)
+    {
+        var element = document.getElementById(elementId);
+        element.innerHTML = htmlCode;
+        
+    }
+    add(element, htmlCode)
+    {
+        var element = document.getElementById(element);
+        element.innerHTML = htmlCode;
     }
     
+    static getUrlParam()
+    {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        let param = urlParams.get('page');
+
+        return param;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
