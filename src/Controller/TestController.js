@@ -68,7 +68,6 @@ else if(param === 'login')
         }
     }
 }
-
 else if(param === 'cart')
 {
     //2. string paraméterel beállítható egy navigáció vagy bármi más ha szükséges
