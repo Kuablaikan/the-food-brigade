@@ -14,6 +14,10 @@ import * as Abstract from "/the-food-brigade/src/View/content.js";
     if(param !== "login" )
     {
         navBar += `<li><a href="?page=login">Login</a></li>`;
+    }
+    if(param !== "cart" )
+    {
+        navBar += `<li><a href="?page=cart">Cart</a></li>`;
     }                
 
     var navigationBar = new Abstract.Content();
