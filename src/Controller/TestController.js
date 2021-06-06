@@ -44,8 +44,31 @@ if (param === 'home' || param === null)
 }
 else if(param === 'login')
 {
-    LoginPage.render();
+    //renderelés vissza adja a login buttont, ehez tudunk onclick eseményt adni pl.:
+    let login = LoginPage.render();
+    login.onclick = function(evt){
+        evt.preventDefault();
+
+        var input = 
+                    {
+                        username: document.getElementById('username').value,
+                        password: document.getElementById('password').value
+                    };
+        console.log(input);
+
+        if(login) //check is not null
+        {
+            /*if(validáció)
+            {
+                login();
+            }
+            else fail();
+            */
+            console.log("click");
+        }
+    }
 }
+
 else if(param === 'cart')
 {
     //2. string paraméterel beállítható egy navigáció vagy bármi más ha szükséges
