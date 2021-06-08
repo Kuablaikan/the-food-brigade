@@ -1,6 +1,6 @@
 import { Content } from "/the-food-brigade/src/View/content.js";
 
-export function InitPage(cartJson, onBuyUrlParam){
+export function InitPage(cartItems, cartObject,  onBuyUrlParam){
     const before = `<ul class="products">`;
     const after = `</ul>`;
     
@@ -8,22 +8,27 @@ export function InitPage(cartJson, onBuyUrlParam){
     let html = "";
     let sumPrice = 0;
     let sumCount = 0;
+    let buttonIds = [];
     
-    for(let i in cartJson)
+    const cartPage = new Content();
+    cartPage.Init("main");
+
+    for(let i in cartItems)
     {
-        sumPrice += cartJson[i].cheese_price * cartJson[i].cheese_count;
-        sumCount += cartJson[i].cheese_count;
-        html = `<li class="preview"><img src=${cartJson[i].cheese_image} alt=${cartJson[i].cheese_name}><div><h3>${cartJson[i].cheese_name}</h3>
-        <h4>${cartJson[i].cheese_count} db</h4><h4>Ár: ${cartJson[i].cheese_price * cartJson[i].cheese_count} Ft</h4></div><input id="cart" type="submit" value="Töröl"></li>>`;
+        sumPrice += cartItems[i].price * cartObject[i].quantity;
+        sumCount += cartObject[i].quantity;
+        html = `<li class="preview"><img src=${cartItems[i].image} alt=${cartItems[i].name}><div><h3>${cartItems[i].name}</h3>
+        <h4>${cartObject[i].quantity} db</h4><h4>Ár: ${cartItems[i].price * cartObject[i].quantity} Ft</h4><p>Triviális</p></div><input id="${cartObject[i].id}" type="submit" value="Töröl"></li>>`;
         productsHTML += html;
+
+        buttonIds[i] = cartObject[i].id;
     }
     let sumHtml = `<h3>Teljes összeg:</h3> <h4> ${sumPrice} Ft</h4> <h3>Tételek száma:</h3> <h4> ${sumCount} db</h4>
     <a href="${onBuyUrlParam}">Megrendel</a>`;
 
-    let cartPage = new Content();
-    cartPage.Init("main");
-    cartPage.clear();
+    
     cartPage.Show("Kosár","cart",before+productsHTML+after+sumHtml);
+    cartPage.addButtonsByArrayOfIds(buttonIds);
 
     return cartPage;
 

@@ -4,7 +4,7 @@ export function InitPage(){
 
     let html = "";
 
-    let successPage = new Content();
+    const successPage = new Content();
     successPage.Init("main");
     successPage.Show("Köszönjük a rendelését! ","", html);
 

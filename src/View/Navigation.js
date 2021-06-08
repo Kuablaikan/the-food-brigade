@@ -20,12 +20,12 @@ import { Content } from "/the-food-brigade/src/View/content.js";
         navBar += `<li><a href="?page=cart">Cart</a></li>`;
     }                
 
-    var navigationBar = new Content();
+    const navigationBar = new Content();
     navigationBar.Init("nav");
     navigationBar.Clear();
     navigationBar.Show("","",before+navBar+after);
     
-    var footerNavigation = new Content();
+    const footerNavigation = new Content();
     footerNavigation.Init("footer");
     footerNavigation.Clear();
     footerNavigation.Show("","",beforeFooter+navBar+after);
