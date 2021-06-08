@@ -1,6 +1,6 @@
-import { Content } from "/the-food-brigade/src/View/content.js";
+import { Content } from "./Content.js";
 
- export function InitPage(){
+ export function InitPage(isLoggedIn){
     let param = Content.getUrlParam();
 
     const before = `<ul class="centerBox"> `;
@@ -11,22 +11,37 @@ import { Content } from "/the-food-brigade/src/View/content.js";
     {
         navBar += `<li><a href="?page=home">Főoldal</a></li>`;
     }
-    if(param !== "login" )
+    if(param !== "login"  && !isLoggedIn)
     {
         navBar += `<li><a href="?page=login">Login</a></li>`;
     }
-    if(param !== "cart" )
+    if(isLoggedIn)
+    {
+        navBar += `<li><a name="logout" href="?page=home">Logout</a></li>`
+    }
+    if(param !== "cart" && isLoggedIn)
     {
         navBar += `<li><a href="?page=cart">Cart</a></li>`;
-    }                
+    }
+             
 
     const navigationBar = new Content();
     navigationBar.Init("nav");
-    navigationBar.Clear();
     navigationBar.Show("","",before+navBar+after);
+    if(isLoggedIn)
+    {
+        navigationBar.setElementByName('logout',0);
+    }
+    
     
     const footerNavigation = new Content();
     footerNavigation.Init("footer");
-    footerNavigation.Clear();
     footerNavigation.Show("","",beforeFooter+navBar+after);
+    if(isLoggedIn)
+    {
+        footerNavigation.setElementByName('logout',1);
+    }
+
+    return { navigationBar, footerNavigation };
+
 }

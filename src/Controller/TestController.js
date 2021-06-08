@@ -1,10 +1,11 @@
-import { Content } from "/the-food-brigade/src/View/content.js";
-import * as Nav from "/the-food-brigade/src/View/Navigation.js";
-import * as MainPage from "/the-food-brigade/src/View/MainPage.js";
-import * as EmptyPage from "/the-food-brigade/src/View/EmptyPage.js";
-import * as LoginPage from "/the-food-brigade/src/View/LoginPage.js";
-import * as CartPage from "/the-food-brigade/src/View/CartPage.js";
-import * as SuccessPage from "/the-food-brigade/src/View/SuccessPage.js";
+import { Content } from "./../View/content.js";
+import * as Nav from "./../View/Navigation.js";
+import * as MainPage from "./../View/MainPage.js";
+import * as EmptyPage from "./../View/EmptyPage.js";
+import * as LoginPage from "./../View/LoginPage.js";
+import * as CartPage from "./../View/CartPage.js";
+import * as SuccessPage from "./../View/SuccessPage.js";
+import * as PopUp from "./../View/popUp.js"
 
 import { CheeseService } from "./../Service/CheeseService.js";
 import { CartItemService } from "./../Service/CartItemService.js";
@@ -20,8 +21,27 @@ let currButtons = [];
 let currList;
 let currCart;
 
+let popUp = PopUp.InitPage("Üzenet");
+popUp.fade(popUp.elementStyle);
+
+
 //Navigáció
-Nav.InitPage();
+
+
+const nav = Nav.InitPage(whoIsLogged());
+if(whoIsLogged())
+{
+    nav.navigationBar.selectedElement.onclick = function(evt)
+    {
+        Logout();
+    }
+    nav.footerNavigation.selectedElement.onclick = function(evt)
+    {
+        Logout();
+    }
+}
+
+
 
 //TESZT
 /*
@@ -103,8 +123,7 @@ else if(param === 'login')
     let loginBtn = currPage.selectedElement;
     loginBtn.onclick = function(evt)
     {
-        evt.preventDefault();
-
+        console.log("click");
         let input = 
                     {
                         username: document.getElementById('username').value,
@@ -116,20 +135,25 @@ else if(param === 'login')
         {
             if(input.password === login.password)
             {
-                Login(login.id);
+                
 
                 //TODO FEEDBACK
+                //currPage.popUpMessage("Sikeres bejelentkezés!");
                 console.log("Sikeress bejelentkezés");
+
+                Login(login.id);
             }
             else
             {
                 //TODO FEEDBACK
+                //currPage.popUpMessage("Nincs ilyen felhasználó - név páros!");
                 console.log("Nincs ilyen felhasználó - jelszó páros!");
             }
         }
         else
         {
             //TODO FEEDBACK
+            //currPage.popUpMessage("Nincs ilyen felhasználó - név páros!!");
             console.log("Nincs ilyen felhasználó - jelszó páros!");
         }
     }
@@ -164,6 +188,7 @@ else if(param === 'cart')
 else if(param === 'success')
 {
     currPage = SuccessPage.InitPage();
+
 }
 else
 {
@@ -175,6 +200,7 @@ else
 //FUNCTIONS
 function Login(userId){
     sessionStorage.setItem('isLoggedIn',userId);
+    location.href ="?page=home";
 }
 
 function whoIsLogged()
@@ -186,7 +212,17 @@ function whoIsLogged()
     }
     else
     {
-        return -1;
+        return false;
     }
+}
+
+function Logout()
+{
+    sessionStorage.removeItem('isLoggedIn');
+}
+
+function commitOrder()
+{
+
 }
 

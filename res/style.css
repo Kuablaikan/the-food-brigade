@@ -50,13 +50,7 @@ body
     color: #ffffff;
     padding: 10px;
    
-    text-align: center;
-    
-    
-    
-    
-    
-    
+    text-align: center;   
 }
 nav
 {
@@ -651,4 +645,19 @@ input[type=submit]:hover
 }
 #content .registered p{
     text-align: center;
+}
+.popUp 
+{
+  
+
+    color: #ffffff;
+    background-color:#a36846;
+    max-width:  500px;
+    box-sizing: border-box;
+    text-align:center;
+    margin: auto;
+    margin-bottom: -20px;
+    font-family: fantasy;
+    font-size: 25px; 
+    border-radius: 20px;
 }

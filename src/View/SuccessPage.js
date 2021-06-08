@@ -1,4 +1,4 @@
-import { Content } from "/the-food-brigade/src/View/content.js";
+import { Content } from "./Content.js";
 
 export function InitPage(){
 

@@ -1,4 +1,4 @@
-import { Content } from "/the-food-brigade/src/View/content.js";
+import { Content } from "./Content.js";
 
 export function InitPage(cartItems, cartObject,  onBuyUrlParam){
     const before = `<ul class="products">`;
@@ -18,7 +18,7 @@ export function InitPage(cartItems, cartObject,  onBuyUrlParam){
         sumPrice += cartItems[i].price * cartObject[i].quantity;
         sumCount += cartObject[i].quantity;
         html = `<li class="preview"><img src=${cartItems[i].image} alt=${cartItems[i].name}><div><h3>${cartItems[i].name}</h3>
-        <h4>${cartObject[i].quantity} db</h4><h4>Ár: ${cartItems[i].price * cartObject[i].quantity} Ft</h4><p>Triviális</p></div><input id="${cartObject[i].id}" type="submit" value="Töröl"></li>>`;
+        <h4>${cartObject[i].quantity} db</h4><h4>Ár: ${cartItems[i].price * cartObject[i].quantity} Ft</h4></div><input id="${cartObject[i].id}" type="submit" value="Töröl"></li>>`;
         productsHTML += html;
 
         buttonIds[i] = cartObject[i].id;

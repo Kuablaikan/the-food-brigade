@@ -12,6 +12,11 @@ export class Content {
     {
         this.page = document.getElementById(elementId);
     }
+    InitByClass(elementClass, index)
+    {
+        let elements = document.getElementsByClassName(elementClass);
+        this.page = elements[index];
+    }
     Clear()
     {
         this.page.innerHTML = " ";
@@ -37,6 +42,12 @@ export class Content {
         this.selectedElement = document.getElementById(id);
     }
 
+    setElementByName(name, index)
+    {
+        let elements = document.getElementsByName(name);
+        this.selectedElement = elements[index];
+    }
+
     addButtonsByArrayOfIds(ids)
     {
         for (let id in ids)
@@ -54,6 +65,11 @@ export class Content {
     clearButtons()
     {
         this.buttons = [];
+    }
+
+    popUpMessage(message)
+    {
+        this.page.innerHTML += `<h2>${message}</h2>`;
     }
     
     
