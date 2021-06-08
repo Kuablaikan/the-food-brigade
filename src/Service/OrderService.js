@@ -29,7 +29,7 @@ export class OrderService {
         let orders = this.getAll();
         ordersToSave.forEach((order) => {
             const index = orders.findIndex((aux) => { return aux.id === order.id; });
-            const orderObj = new OrderOrder(parseInt(order.id), parseInt(order.userId), order.buyerName, order.address);
+            const orderObj = new Order(parseInt(order.id), parseInt(order.userId), order.buyerName, order.address);
             if (index >= 0)
                 orders[index] = orderObj;
             else
