@@ -12,29 +12,33 @@ Nav.render();
 //KB ilyen JSON-t vár a listázás és a kosár is, be Kosárhoz szükség van a countra
 let cheeseListTest = {
     0:{
-        cheese_image:"img/chedar.jpg",
-        cheese_name:"chedar sajt",
-        cheese_description: "Lorem ipsum dolor sit...",
-        cheese_price:15000,
-        cheese_count: 5},
+        id:0,
+        image:"img/chedar.jpg",
+        nname:"chedar sajt",
+        description: "Lorem ipsum dolor sit...",
+        price:15000,
+        count: 5},
     1:{
-        cheese_image:"img/gouda.jpg",
-        cheese_name:"Gouda sajt",
-        cheese_description: "Lorem ipsum dolor sit...",
-        cheese_price:125000,
-        cheese_count: 2},
+        id:1,
+        image:"img/gouda.jpg",
+        name:"Gouda sajt",
+        description: "Lorem ipsum dolor sit...",
+        price:125000,
+        count: 2},
     15:{
-        cheese_image:"img/bluecheese.jpg",
-        cheese_name:"Kéksajt sajt",
-        cheese_description: "Lorem ipsum dolor sit...",
-        cheese_price:120,
-        cheese_count: 1},
+        id:15,
+        image:"img/bluecheese.jpg",
+        name:"Kéksajt sajt",
+        description: "Lorem ipsum dolor sit...",
+        price:120,
+        count: 1},
     2222:{
-        cheese_image:"img/trapista.jpg",
-        cheese_name:"Trappista sajt",
-        cheese_description: "Lorem ipsum dolor sit...",
-        cheese_price:500,
-        cheese_count: 110}};
+        id:2222,
+        image:"img/trapista.jpg",
+        name:"Trappista sajt",
+        description: "Lorem ipsum dolor sit...",
+        price:500,
+        count: 110}};
 
 //IDEIGLENES PAGE CHECK csak a szemléltetés végett KB ilyen logikával müködik. Ha rá hivuk egy renderelést akkor eltünik az aktuális tartalom. (Kivéve a navnál persze)
 let param = Abstract.Content.getUrlParam();

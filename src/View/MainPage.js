@@ -22,8 +22,8 @@ class MainPage extends Abstract.Content
     
     for(let i in cheeseList)
     {
-        html = `<li class="preview"><img src=${cheeseList[i].cheese_image} alt=${cheeseList[i].cheese_name}><div><h3>${cheeseList[i].cheese_name}</h3>
-        <p>${cheeseList[i].cheese_description}</p><h4>Ár: ${cheeseList[i].cheese_price} HUF</h4></div><input id="cart" name=${"cheeseListTest.cheese_type_id"} type="submit" value="Kosárba"></li>>`;
+        html = `<li class="preview"><img src=${cheeseList[i].image} alt="${cheeseList[i].name} -ról készült kép"><div><h3>${cheeseList[i].name}</h3>
+        <p>${cheeseList[i].description}</p><h4>Ár: ${cheeseList[i].price} HUF</h4></div><input id="${cheeseList[i].id}" name=${"cheeseListTest.cheese_type_id"} type="submit" value="Kosárba"></li>>`;
         productsHTML += html;
     }
 
