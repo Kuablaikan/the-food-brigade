@@ -9,6 +9,13 @@ export class CheeseService {
         });
     }
 
+    static getById(id) {
+        const cheese = this.getAll().find((cheese) => { return cheese.id === id; });
+        if (!cheese)
+            return null;
+        return cheese;
+    }
+
     static save(cheesesToSave) {
         if (!Array.isArray(cheesesToSave))
             cheesesToSave = [cheesesToSave];
