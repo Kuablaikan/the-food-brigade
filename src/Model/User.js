@@ -1,3 +1,5 @@
+import { isString, isInt } from './../Utils/Validation.js';
+
 export class User {
 
     constructor(id, username, password) {
@@ -7,11 +9,11 @@ export class User {
     }
 
     isValid() {
-        if (typeof this.id !== "number" || this.id === null || isNaN(this.price) || !isFinite(this.price) || (this.price | 0) !== this.price)
+        if (!isInt(this.id))
             return false;
-        if (typeof this.username !== "string" || this.username === null || this.username.length <= 0)
+        if (!isString(this.username) || this.username.length <= 0)
             return false;
-        if (typeof this.password !== "string" || this.password === null || this.password.length <= 0)
+        if (!isString(this.password) || this.password.length <= 0)
             return false;
         return true;
     }
