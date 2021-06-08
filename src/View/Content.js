@@ -1,32 +1,61 @@
 export class Content {  
 
-    init(element)
+    constructor(){
+        this.buttons = [];
+    }
+
+    Init(element)
     {
         this.page = document.querySelector(element);
     }
-    initById(elementId)
+    InitById(elementId)
     {
         this.page = document.getElementById(elementId);
     }
-    clear()
+    Clear()
     {
         this.page.innerHTML = " ";
     }
-    show(title, className, htmlCode)
+    Show(title, className, htmlCode)
     {
         this.page.innerHTML = `<h2>${title}</h2><div class=${className}>${htmlCode}</div>`;
     }
-    addById(elementId, htmlCode)
+    AddById(elementId, htmlCode)
     {
         var element = document.getElementById(elementId);
         element.innerHTML = htmlCode;
         
     }
-    add(element, htmlCode)
+    Add(element, htmlCode)
     {
         var element = document.getElementById(element);
         element.innerHTML = htmlCode;
     }
+
+    setElementById(id)
+    {
+        this.selectedElement = document.getElementById(id);
+    }
+
+    addButtonsByArrayOfIds(ids)
+    {
+        for (let id in ids)
+         {
+            this.setElementById(ids[id]);
+            this.buttons.push( this.selectedElement);
+         }
+    }
+
+    getButtons()
+    {
+        return this.buttons;
+    }
+
+    clearButtons()
+    {
+        this.buttons = [];
+    }
+    
     
     static getUrlParam()
     {
@@ -37,53 +66,3 @@ export class Content {
         return param;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*var probaPage = new Content();
-probaPage.init("content");
-probaPage.clear();
-probaPage.show("Próba page", "red", "<p>ASDASDASD</p>");*/
-
-
-
-/*function Content(){
-
-}
-
-Content.prototype.init=function(elementId){
-        
-}
-Content.prototype.clear = function(){
-    this.page.innerHTML = " ";
-}
-Content.prototype.show=function(title,className,contentHTML){ 
-    this.page.innerHTML = `<h2>${title}</h2><div class=${className}>${contentHTML}</div>`;
-}
-Content.prototype.type = "unknown";
-console.log("Abstract class loaded!");
-
-function MainPage(elementId) {
-    this.init(elementId);
-
-}
-MainPage.prototype= new Content();
-MainPage.prototype.type = "MainPage";
-
-var probaPage = new MainPage();
-probaPage.init("content");
-probaPage.clear();
-probaPage.show("Próba page", "red", "<p>ASDASDASD</p>");*/

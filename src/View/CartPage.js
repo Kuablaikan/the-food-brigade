@@ -1,6 +1,6 @@
-import * as Abstract from "/the-food-brigade/src/View/content.js";
+import { Content } from "/the-food-brigade/src/View/content.js";
 
-export function render(cartJson, onBuyUrlParam){
+export function InitPage(cartJson, onBuyUrlParam){
     const before = `<ul class="products">`;
     const after = `</ul>`;
     
@@ -20,9 +20,11 @@ export function render(cartJson, onBuyUrlParam){
     let sumHtml = `<h3>Teljes összeg:</h3> <h4> ${sumPrice} Ft</h4> <h3>Tételek száma:</h3> <h4> ${sumCount} db</h4>
     <a href="${onBuyUrlParam}">Megrendel</a>`;
 
-    let mainPage = new Abstract.Content();
-    mainPage.init("main");
-    mainPage.clear();
-    mainPage.show("Kosár","cart",before+productsHTML+after+sumHtml);
+    let cartPage = new Content();
+    cartPage.Init("main");
+    cartPage.clear();
+    cartPage.Show("Kosár","cart",before+productsHTML+after+sumHtml);
+
+    return cartPage;
 
 }

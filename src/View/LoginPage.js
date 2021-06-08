@@ -1,5 +1,5 @@
-import * as Abstract from "/the-food-brigade/src/View/content.js";
-class LoginPage extends Abstract.Content
+import { Content } from "/the-food-brigade/src/View/content.js";
+class LoginPage extends Content
 {
     constructor (){
         super();
@@ -7,23 +7,22 @@ class LoginPage extends Abstract.Content
     loginElement;
     input;
 
-    show(title, className, htmlCode)
+    Show(title, className, htmlCode)
     {
         this.page.innerHTML = `<h2>${title}</h2><div class=${className}>${htmlCode}</div>`;
-
-        this.getElement();
-   
+        
+        //console.log(this.selectedElement);
     }
 
 
-    getElement()
+   /* getElement()
     {
         this.loginElement = document.getElementById('login');
-    }
+    }*/
     
 }
 
-export function render(){
+export function InitPage(buttonId){
 
     let html = `<label for="username">Felhasználó név:</label><br>
     <input type="text" id="username" name="email" value=""><br>
@@ -32,10 +31,11 @@ export function render(){
     <input id="login" type="button" value="Bejelentkezés">`;
 
     let loginPage = new LoginPage();
-    loginPage.init("main");
-    loginPage.show("Login ","form", html);
+    loginPage.Init("main");
+    loginPage.Show("Login ","form", html);
 
-    return loginPage.loginElement;
+    loginPage.setElementById(buttonId);
 
+    return loginPage;
 }
 

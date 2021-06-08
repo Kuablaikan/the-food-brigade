@@ -1,7 +1,7 @@
-import * as Abstract from "/the-food-brigade/src/View/content.js";
+import { Content } from "/the-food-brigade/src/View/content.js";
 
- export function render(){
-    let param = Abstract.Content.getUrlParam();
+ export function InitPage(){
+    let param = Content.getUrlParam();
 
     const before = `<ul class="centerBox"> `;
     const beforeFooter = `<ul class="navBar">`;
@@ -20,13 +20,13 @@ import * as Abstract from "/the-food-brigade/src/View/content.js";
         navBar += `<li><a href="?page=cart">Cart</a></li>`;
     }                
 
-    var navigationBar = new Abstract.Content();
-    navigationBar.init("nav");
-    navigationBar.clear();
-    navigationBar.show("","",before+navBar+after);
+    var navigationBar = new Content();
+    navigationBar.Init("nav");
+    navigationBar.Clear();
+    navigationBar.Show("","",before+navBar+after);
     
-    var footerNavigation = new Abstract.Content();
-    footerNavigation.init("footer");
-    footerNavigation.clear();
-    footerNavigation.show("","",beforeFooter+navBar+after);
+    var footerNavigation = new Content();
+    footerNavigation.Init("footer");
+    footerNavigation.Clear();
+    footerNavigation.Show("","",beforeFooter+navBar+after);
 }

@@ -1,10 +1,12 @@
-import * as Abstract from "/the-food-brigade/src/View/content.js";
+import { Content } from "/the-food-brigade/src/View/content.js";
 
-export function render(){
+export function InitPage(){
 
     let html = "";
 
-    let loginPage = new Abstract.Content();
-    loginPage.init("main");
-    loginPage.show("Köszönjük a rendelését! ","", html);
+    let successPage = new Content();
+    successPage.Init("main");
+    successPage.Show("Köszönjük a rendelését! ","", html);
+
+    return successPage;
 }

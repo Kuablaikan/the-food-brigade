@@ -1,4 +1,4 @@
-import * as Abstract from "/the-food-brigade/src/View/content.js"; //EZ AZ IMPORT CSAK A SZEMLÉLTETÉS MIATT KELL
+import { Content } from "/the-food-brigade/src/View/content.js"; //EZ AZ IMPORT CSAK A SZEMLÉLTETÉS MIATT KELL
 import * as Nav from "/the-food-brigade/src/View/Navigation.js";
 import * as MainPage from "/the-food-brigade/src/View/MainPage.js";
 import * as EmptyPage from "/the-food-brigade/src/View/EmptyPage.js";
@@ -6,10 +6,17 @@ import * as LoginPage from "/the-food-brigade/src/View/LoginPage.js";
 import * as CartPage from "/the-food-brigade/src/View/CartPage.js";
 import * as SuccessPage from "/the-food-brigade/src/View/SuccessPage.js";
 
-//Navigáció
-Nav.render();
+import { CheeseService } from "./../Service/CheeseService.js";
 
-//KB ilyen JSON-t vár a listázás és a kosár is, be Kosárhoz szükség van a countra
+//aktuális oldal(tartalom szempontjából)
+let currPage;
+let currButtons = [];
+let currList;
+
+//Navigáció
+Nav.InitPage();
+
+//KB ilyen JSON-t vár a listázás és a kosár is, be Kosárhoz szükség van a countra PLACEHOLDER
 let cheeseListTest = {
     0:{
         id:0,
@@ -38,19 +45,48 @@ let cheeseListTest = {
         name:"Trappista sajt",
         description: "Lorem ipsum dolor sit...",
         price:500,
-        count: 110}};
+        count: 110}
+    };
 
-//IDEIGLENES PAGE CHECK csak a szemléltetés végett KB ilyen logikával müködik. Ha rá hivuk egy renderelést akkor eltünik az aktuális tartalom. (Kivéve a navnál persze)
-let param = Abstract.Content.getUrlParam();
+//Teszt sajt
+let cheeseListTest2 = {
+        id:2,
+        image:"img/chedar.jpg",
+        name:"chedar sajt másik id-vel",
+        description: "Lorem ipsum dolor sit...",
+        price:15000,
+        quantity: 10
+    };
+
+//Teszt sajt feltöltése
+CheeseService.save(cheeseListTest2);    
+
+//IDEIGLENES PAGE CHECK csak a szemléltetés végett KB ilyen logikával müködik. Ha rá hivuk egy InitPageelést akkor eltünik az aktuális tartalom. (Kivéve a navnál persze)
+let param = Content.getUrlParam();
 if (param === 'home' || param === null)
 {
-    MainPage.render(cheeseListTest);
+    currList = CheeseService.getAll();
+    currPage = MainPage.InitPage(currList);
+    currButtons = currPage.getButtons();
+
+    for (let i = 0; i < currButtons.length; i++)
+    {
+        currButtons[i].onclick = function(evt)
+        {
+            evt.preventDefault();
+            console.log(`Clicked: ${currButtons[i].id}`);
+        }
+    }
+
 }
 else if(param === 'login')
 {
-    //renderelés vissza adja a login buttont, ehez tudunk onclick eseményt adni pl.:
-    let login = LoginPage.render();
-    login.onclick = function(evt){
+    
+    currPage = LoginPage.InitPage('login');
+    //currPage.setElementById('login2'); ha szükséges felülírni
+    let loginBtn = currPage.selectedElement;
+    loginBtn.onclick = function(evt)
+    {
         evt.preventDefault();
 
         var input = 
@@ -75,15 +111,15 @@ else if(param === 'login')
 else if(param === 'cart')
 {
     //2. string paraméterel beállítható egy navigáció vagy bármi más ha szükséges
-    CartPage.render(cheeseListTest, "?page=success");
+    currPage = CartPage.InitPage(cheeseListTest, "?page=success");
 }
 else if(param === 'success')
 {
-    SuccessPage.render();
+    currPage = SuccessPage.InitPage();
 }
 else
 {
-    EmptyPage.render();
+    currPage = EmptyPage.InitPage();
 }
 
 
