@@ -9,6 +9,13 @@ export class UserService {
         });
     }
 
+    static getById(id) {
+        const user = this.getAll().find((user) => { return user.id === id; });
+        if (!user)
+            return null;
+        return user;
+    }
+
     static getByUsername(username) {
         const user = this.getAll().find((user) => { return user.username === username; });
         if (!user)
