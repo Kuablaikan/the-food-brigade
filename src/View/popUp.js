@@ -32,7 +32,7 @@ export function InitPage(message){
     const popUp = new PopUp();
     console.log(document.getElementsByClassName("popUp")[0])
     popUp.InitByClass("popUp", 0);
-    popUp.Show(message);
+    //popUp.Show(message);
 
     //(function fade(){(popUp.page.style.opacity-=.1)<0?popUp.page.style.display="none":setTimeout(fade,40)})();
     return popUp;

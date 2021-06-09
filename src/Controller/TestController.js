@@ -21,25 +21,34 @@ let currButtons = [];
 let currList;
 let currCart;
 
-let popUp = PopUp.InitPage("Üzenet");
-setTimeout(() => { popUp.Hide(); }, 5000);
+const logOutFunction = function()
+{
+    sessionStorage.removeItem('isLoggedIn');
+    
+}
+
+const popUp = PopUp.InitPage();
+
+
 
 
 //Navigáció
 
 
-const nav = Nav.InitPage(whoIsLogged());
-if(whoIsLogged())
+const nav = Nav.InitPage(whoIsLogged(), logOutFunction);
+/*if(whoIsLogged())
 {
     nav.navigationBar.selectedElement.onclick = function(evt)
     {
+        console.log(whoIsLogged());
         Logout();
     }
     nav.footerNavigation.selectedElement.onclick = function(evt)
     {
+        console.log(whoIsLogged());
         Logout();
     }
-}
+}*/
 
 
 
@@ -88,31 +97,44 @@ if (param === 'home' || param === null)
         {
             evt.preventDefault();
             
-            const auxList = CartItemService.getAll().map((cartItem) => { return cartItem.id; });
-            let maxId = 0;
-            if (auxList.length > 0)
-                maxId = Math.max(...auxList);
-
-            let cartItem = CartItemService.getByUserId( parseInt(whoIsLogged()) ).find( (cartItem) =>
-            { 
-                return cartItem.cheeseId === parseInt(currButtons[i].id); 
-            });
-            if (cartItem)
-            { 
-                if(cartItem.quantity < CheeseService.getById(parseInt(cartItem.cheeseId)).quantity)
-                {
-                    CartItemService.save(new CartItem(cartItem.id,parseInt(whoIsLogged()),currButtons[i].id,cartItem.quantity+1));
+            if(whoIsLogged())
+            {
+                const auxList = CartItemService.getAll().map((cartItem) => { return cartItem.id; });
+                let maxId = 0;
+                if (auxList.length > 0)
+                    maxId = Math.max(...auxList);
+    
+                let cartItem = CartItemService.getByUserId( parseInt(whoIsLogged()) ).find( (cartItem) =>
+                { 
+                    return cartItem.cheeseId === parseInt(currButtons[i].id); 
+                });
+                if (cartItem)
+                { 
+                    if(cartItem.quantity < CheeseService.getById(parseInt(cartItem.cheeseId)).quantity)
+                    {
+                        CartItemService.save(new CartItem(cartItem.id,parseInt(whoIsLogged()),currButtons[i].id,cartItem.quantity+1));
+                    }
+                    else
+                    {
+                        //TODO SOME FEEDBACK TO NO MORE ITEM LEFT
+                        popUp.Show("Nincs több raktáron ebből a sajtból!");
+                        setTimeout(() => {popUp.Hide(); }, 3000);
+                        console.log(`Elfogyot a sajt(${cartItem.cheeseId})`);
+                    }
                 }
                 else
                 {
-                    //TODO SOME FEEDBACK TO NO MORE ITEM LEFT
-                    console.log(`Elfogyot a sajt(${cartItem.cheeseId})`);
+                    CartItemService.save(new CartItem(maxId+1,parseInt(whoIsLogged()),currButtons[i].id,1)); 
                 }
             }
             else
             {
-                CartItemService.save(new CartItem(maxId+1,parseInt(whoIsLogged()),currButtons[i].id,1)); 
+                popUp.Show("Be kell jelentkezned!");
+                setTimeout(() => {popUp.Hide(); }, 3000);
             }
+
+
+            
         }
     }
 }
@@ -135,24 +157,27 @@ else if(param === 'login')
         {
             if(input.password === login.password)
             {
-                
-
                 //TODO FEEDBACK
-                //currPage.popUpMessage("Sikeres bejelentkezés!");
+                popUp.Show("Sikeres bejelentkezés!");
+                setTimeout(() => {popUp.Hide(); }, 3000);
+                Login(login.id);
                 console.log("Sikeress bejelentkezés");
 
-                Login(login.id);
+                
             }
             else
             {
                 //TODO FEEDBACK
-                //currPage.popUpMessage("Nincs ilyen felhasználó - név páros!");
+                popUp.Show("Nincs ilyen felhasználó - jelszó páros!");
+                setTimeout(() => { popUp.Hide(); }, 3000);
                 console.log("Nincs ilyen felhasználó - jelszó páros!");
             }
         }
         else
         {
             //TODO FEEDBACK
+            popUp.Show("Nincs ilyen felhasználó - jelszó páros!");
+            setTimeout(() => { popUp.Hide(); }, 3000);
             //currPage.popUpMessage("Nincs ilyen felhasználó - név páros!!");
             console.log("Nincs ilyen felhasználó - jelszó páros!");
         }
@@ -200,7 +225,8 @@ else
 //FUNCTIONS
 function Login(userId){
     sessionStorage.setItem('isLoggedIn',userId);
-    location.href ="?page=home";
+    Nav.InitPage(whoIsLogged(), logOutFunction);
+    currPage.Show(`Üdvözöljük: ${UserService.getById(parseInt(userId)).username}`, "", "");  
 }
 
 function whoIsLogged()
@@ -215,14 +241,3 @@ function whoIsLogged()
         return false;
     }
 }
-
-function Logout()
-{
-    sessionStorage.removeItem('isLoggedIn');
-}
-
-function commitOrder()
-{
-
-}
-

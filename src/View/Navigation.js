@@ -1,6 +1,21 @@
 import { Content } from "./Content.js";
 
- export function InitPage(isLoggedIn){
+class Nav extends Content
+{
+    setButtonOnClick(logOutFunction)
+    {
+        this.selectedElement.onclick = function(evt)
+        {
+            evt.preventDefault();
+            console.log(Content.getUrlParam);
+            if(Content.getUrlParam !== "home") location.href="?page=home";
+            logOutFunction();
+        }
+    }
+}
+
+
+ export function InitPage(isLoggedIn, logOutFunction){
     let param = Content.getUrlParam();
 
     const before = `<ul class="centerBox"> `;
@@ -17,7 +32,7 @@ import { Content } from "./Content.js";
     }
     if(isLoggedIn)
     {
-        navBar += `<li><a name="logout" href="?page=home">Logout</a></li>`
+        navBar += `<li><a name="logout" href="">Logout</a></li>`
     }
     if(param !== "cart" && isLoggedIn)
     {
@@ -25,21 +40,23 @@ import { Content } from "./Content.js";
     }
              
 
-    const navigationBar = new Content();
+    const navigationBar = new Nav();
     navigationBar.Init("nav");
     navigationBar.Show("","",before+navBar+after);
     if(isLoggedIn)
     {
         navigationBar.setElementByName('logout',0);
+        navigationBar.setButtonOnClick(logOutFunction,param);
     }
     
     
-    const footerNavigation = new Content();
+    const footerNavigation = new Nav();
     footerNavigation.Init("footer");
     footerNavigation.Show("","",beforeFooter+navBar+after);
     if(isLoggedIn)
     {
         footerNavigation.setElementByName('logout',1);
+        footerNavigation.setButtonOnClick(logOutFunction,param);
     }
 
     return { navigationBar, footerNavigation };
