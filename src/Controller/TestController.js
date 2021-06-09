@@ -22,7 +22,7 @@ let currList;
 let currCart;
 
 let popUp = PopUp.InitPage("Üzenet");
-popUp.fade(popUp.elementStyle);
+setTimeout(() => { popUp.Hide(); }, 5000);
 
 
 //Navigáció

@@ -660,4 +660,5 @@ input[type=submit]:hover
     font-family: fantasy;
     font-size: 25px; 
     border-radius: 20px;
+    display: none;
 }

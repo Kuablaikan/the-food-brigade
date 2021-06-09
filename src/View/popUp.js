@@ -4,14 +4,23 @@ class PopUp extends Content
 {
     Show(message){
         this.page.innerHTML = `<h3>${message}</h3>`;
+        this.page.style.display = "block";
+        this.page.style.transition = "opacity 0.25s linear 0s";
+        this.page.style.opacity = 0.0;
+        setTimeout(() => { this.page.style.opacity = 1.0; }, 0);
     }
 
-    setFadeDefault()
+    Hide() {
+        this.page.style.opacity = 0.0;
+        setTimeout(() => { this.page.style.display = "none"; }, 250);
+    }
+
+    /*setFadeDefault()
     {
         this.page.style.opacity = 1;
     }
 
-    /*fade()
+    fade()
     {
         this.page.style.opacity-=.1
     }*/
