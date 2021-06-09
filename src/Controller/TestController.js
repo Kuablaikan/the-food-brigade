@@ -62,29 +62,29 @@ if (param === 'home' || param === null)
                 });
                 if (cartItem)
                 { 
-                    if(cartItem.quantity < CheeseService.getById(parseInt(cartItem.cheeseId)).quantity)
-                    {
-                        popUp.Show("Hozzáadva!");
-                        setTimeout(() => {popUp.Hide(); }, 1500);
-                        CartItemService.save(new CartItem(cartItem.id,parseInt(whoIsLogged()),currButtons[i].id,cartItem.quantity+1));
-                    }
-                    else
-                    {
-                        popUp.Show("Nincs több raktáron ebből a sajtból!");
-                        setTimeout(() => {popUp.Hide(); }, 3000);
-                    }
+                    //if(cartItem.quantity < CheeseService.getById(parseInt(cartItem.cheeseId)).quantity)
+                    //{
+                    popUp.Show("Hozzáadva!");
+                    popUp.Hide(1500);
+                    CartItemService.save(new CartItem(cartItem.id,parseInt(whoIsLogged()),currButtons[i].id,cartItem.quantity+1));
+                    //}
+                    //else
+                    //{
+                    //    popUp.Show("Nincs több raktáron ebből a sajtból!");
+                    //    popUp.Hide(3000);
+                    //}
                 }
                 else
                 {
                     popUp.Show("Hozzáadva!");
-                    setTimeout(() => {popUp.Hide(); }, 1500);
+                    popUp.Hide(1500);
                     CartItemService.save(new CartItem(maxId+1,parseInt(whoIsLogged()),currButtons[i].id,1)); 
                 }
             }
             else
             {
                 popUp.Show("Be kell jelentkezned!");
-                setTimeout(() => {popUp.Hide(); }, 3000);
+                popUp.Hide(3000);
             }  
         }
     }
@@ -182,19 +182,19 @@ else if(param === 'login' && !whoIsLogged())
             else if(input.password === login.password)
             {
                 popUp.Show("Sikeres bejelentkezés!");
-                setTimeout(() => {popUp.Hide(); }, 3000);
+                popUp.Hide(3000);
                 Login(login.id);
             }
             else
             {
                 popUp.Show("Nincs ilyen felhasználó - jelszó páros!");
-                setTimeout(() => { popUp.Hide(); }, 3000);
+                popUp.Hide(3000);
             }
         }
         else
         {
             popUp.Show("Nincs ilyen felhasználó - jelszó páros!");
-            setTimeout(() => { popUp.Hide(); }, 3000);
+            popUp.Hide(3000);
         }
     }
 }
