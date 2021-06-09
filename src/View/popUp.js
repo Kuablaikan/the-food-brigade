@@ -10,9 +10,24 @@ class PopUp extends Content
         setTimeout(() => { this.page.style.opacity = 1.0; }, 0);
     }
 
-    Hide() {
-        this.page.style.opacity = 0.0;
-        setTimeout(() => { this.page.style.display = "none"; }, 400);
+    Hide(delay) {
+        let ticket = sessionStorage.getItem('popupTicket');
+        if (!ticket)
+            ticket = 0;
+        else
+            ticket = parseInt(ticket) + 1;
+        sessionStorage.setItem('popupTicket', ticket);
+
+        (() => {
+            const localTicket = ticket;
+            setTimeout(() => {
+                const ticket = sessionStorage.getItem('popupTicket');
+                if (ticket && localTicket === parseInt(ticket)) {
+                    this.page.style.opacity = 0.0;
+                    setTimeout(() => { this.page.style.display = "none"; }, 400);
+                }
+            }, delay);
+        })();
     }
 }
 
