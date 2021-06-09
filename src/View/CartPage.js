@@ -13,7 +13,7 @@ export function InitPage(cartItems, cartObject){
     const cartPage = new Content();
     cartPage.Init("main");
 
-    if(cartItems.length <= 0)
+    if(!cartItems)
     {
         console.log("sajt");
         cartPage.Show("Üres a kosarad!","cart","");

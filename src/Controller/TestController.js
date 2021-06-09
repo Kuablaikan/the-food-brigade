@@ -209,55 +209,62 @@ else if(param === 'cart' && whoIsLogged())
     let item;
     let storeList = [];
     currCart = CartItemService.getByUserId(parseInt(whoIsLogged()));
-    
-    for (let i in currCart )
+    console.log(currCart);
+    if(currCart.length > 0)
     {
-        currList.push( CheeseService.getById(currCart[i].cheeseId) );
-    }
+        for (let i in currCart )
+        {
+            currList.push( CheeseService.getById(currCart[i].cheeseId) );
+        }
 
-    currPage = CartPage.InitPage(currList, currCart, "?page=success");
-    //delete buttons
-    currButtons = currPage.getButtons();
-    for (let i = 0; i < currButtons.length; i++)
-    {
-        currButtons[i].onclick = function(evt)
+        currPage = CartPage.InitPage(currList, currCart, "?page=success");
+        //delete buttons
+        currButtons = currPage.getButtons();
+        for (let i = 0; i < currButtons.length; i++)
+        {
+            currButtons[i].onclick = function(evt)
+            {
+                evt.preventDefault();
+                CartItemService.delete(CartItemService.getById( parseInt( currButtons[i].id ) ) );
+                location.reload();
+            }
+        }
+        //order button
+        currPage.selectedElement.onclick = function(evt)
         {
             evt.preventDefault();
-            CartItemService.delete(CartItemService.getById( parseInt( currButtons[i].id ) ) );
-            location.reload();
-        }
-    }
-    //order button
-    currPage.selectedElement.onclick = function(evt)
-    {
-        evt.preventDefault();
-        storeList = CheeseService.getAll();
-        if(!currCart)
-        {
-            popUp.Show("Üres a kosarad!");
-            popUp.Hide(3000);
-            return;
-        }
-        for (let i = 0; i < currCart.length; i++)
-        {
-            for (let j = 0; j < storeList.length; j++)
+            storeList = CheeseService.getAll();
+            if(!currCart)
             {
-                if(currCart[i].cheeseId === storeList[j].id)
+                popUp.Show("Üres a kosarad!");
+                popUp.Hide(3000);
+                return;
+            }
+            for (let i = 0; i < currCart.length; i++)
+            {
+                for (let j = 0; j < storeList.length; j++)
                 {
-                    
-                    if(currCart[i].quantity > storeList[j].quantity)
+                    if(currCart[i].cheeseId === storeList[j].id)
                     {
-                        popUp.Show(`Nincs elgendő ebből:${storeList[i].name}(id:${storeList[j].id}) ${storeList[j].quantity} db áll rendelkezésre.`);
-                        popUp.Hide(5000);
+                        
+                        if(currCart[i].quantity > storeList[j].quantity)
+                        {
+                            popUp.Show(`Nincs elgendő ebből:${storeList[i].name}(id:${storeList[j].id}) ${storeList[j].quantity} db áll rendelkezésre.`);
+                            popUp.Hide(5000);
+                        }
+                        else
+                        {
+                            location.href="?page=order";
+                        }
                     }
-                    else
-                    {
-                        location.href="?page=order";
-                    }
-                }
-            } 
+                } 
+            }
         }
     }
+    else{
+        currPage = CartPage.InitPage();
+    }
+    
 }
 else if(param === 'order')
 {
