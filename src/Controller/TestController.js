@@ -70,6 +70,7 @@ if (param === 'home' || param === null)
         
         if(detailButtons[i])detailButtons[i].onclick = function(evt)
         {
+            evt.preventDefault();
             console.log(`Sajt:${currButtons[i].id}`);
             //kattntásra mit csináljon
             
