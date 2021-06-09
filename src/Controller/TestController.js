@@ -44,9 +44,9 @@ if (param === 'home' || param === null)
     currButtons = currPage.getButtons();
 
     //TESZT
-
     currPage.setElementById('test');
-    currPage.selectedElement.onclick = function(evt)
+    const tesztBtn = currPage.selectedElement
+    tesztBtn.onclick = function(evt)
     {
         evt.preventDefault();
         UserService.save(new User(5,'asd','asd'));
@@ -56,9 +56,26 @@ if (param === 'home' || param === null)
 
         popUp.Show("Teszt adatok feltöltve!");
         popUp.Hide(1500);
-    }
-   
+    } 
     //TESZT
+
+    //Itt lesz a details hívása
+    let detailButtons = [];
+    let btn;
+    for (let i= 0; i < currButtons.length; i++)
+    {
+        currPage.setElementByName(currButtons[i].id,0);
+        btn = currPage.selectedElement;
+        detailButtons.push(btn);
+        
+        if(detailButtons[i])detailButtons[i].onclick = function(evt)
+        {
+            console.log(`Sajt:${currButtons[i].id}`);
+            //kattntásra mit csináljon
+            
+        }
+    }
+    //
 
     for (let i = 0; i < currButtons.length; i++)
     {

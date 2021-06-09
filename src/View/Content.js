@@ -42,6 +42,7 @@ export class Content {
         this.selectedElement = document.getElementById(id);
     }
 
+
     setElementByName(name, index)
     {
         let elements = document.getElementsByName(name);
