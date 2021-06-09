@@ -24,13 +24,13 @@ class MainPage extends Content
         if (cheeseList[i].quantity <= 0)
             continue;
         html = `<li id="asd" class="preview"><img src=${cheeseList[i].image} alt="${cheeseList[i].name} -ról készült kép"><div><h3>${cheeseList[i].name}</h3>
-        <p>${cheeseList[i].description}</p><h4>Ár: ${cheeseList[i].price} HUF</h4></div><input id=${cheeseList[i].id} type="submit" value="Kosárba" style="display:${sessionStorage.getItem('isLoggedIn') ? "inline-block" : "none"}"></li>>`;
+        <p>${cheeseList[i].description}</p><h4>Ár: ${cheeseList[i].price} HUF</h4></div><input id=${cheeseList[i].id} type="submit" value="Kosárba" style="display:${sessionStorage.getItem('isLoggedIn') ? "inline-block" : "none"}"></li>`;
         productsHTML += html;
 
         buttonIds[i] = cheeseList[i].id;
     }
     
-    mainPage.Show("Sajtok", before+productsHTML+after);
+    mainPage.Show('<input id="test" type=button value="TESZT ADATOK"><br>Sajtok', before+productsHTML+after);
     mainPage.addButtonsByArrayOfIds(buttonIds);
 
     return mainPage;

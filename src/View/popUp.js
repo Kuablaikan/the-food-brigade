@@ -34,7 +34,6 @@ class PopUp extends Content
 export function InitPage(){
 
     const popUp = new PopUp();
-    console.log(document.getElementsByClassName("popUp")[0])
     popUp.InitByClass("popUp", 0);
 
     return popUp;
