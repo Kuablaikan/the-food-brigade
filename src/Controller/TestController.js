@@ -8,6 +8,7 @@ import * as SuccessPage from "./../View/SuccessPage.js";
 import * as PopUp from "./../View/popUp.js"
 import * as RegisterPage from "./../View/registerPage.js"
 import * as OrderPage from "./../View/orderPage.js";
+import * as OrdersPage from "./../View/userOrdersPage.js";
 
 import { CheeseService } from "./../Service/CheeseService.js";
 import { CartItemService } from "./../Service/CartItemService.js";
@@ -19,24 +20,46 @@ import { CartItem } from "./../Model/CartItem.js";
 import { OrderItemService } from "../Service/OrderItemService.js";
 import { OrderService } from "../Service/OrderService.js";
 import { Order } from "../Model/Order.js";
+import { OrderItem } from "../Model/OrderItem.js";
 
-//aktuális oldal(tartalom szempontjából)
+//URL PARAM
+const param = Content.getUrlParam();
+
+//VARS
 let currPage;
 let currButtons = [];
 let currList;
 let currCart;
+let currOrders;
 
+//FUNCTIONS
+function Login(userId){
+    sessionStorage.setItem('isLoggedIn',userId);
+    Nav.InitPage(whoIsLogged(), logOutFunction);
+    currPage.Show(`Üdvözöljük: ${UserService.getById(parseInt(userId)).username}`, "", "");  
+}
+function whoIsLogged()
+{
+    let isLogged = sessionStorage.getItem('isLoggedIn');
+    if(isLogged)
+    {
+        return parseInt(isLogged);
+    }
+    else
+    {
+        return false;
+    }
+}
 const logOutFunction = function()
 {
     sessionStorage.removeItem('isLoggedIn'); 
 }
 
+//NAVIGATION AND POPUP
 const popUp = PopUp.InitPage();
 const nav = Nav.InitPage(whoIsLogged(), logOutFunction);
 
-
-
-const param = Content.getUrlParam();
+//HOME
 if (param === 'home' || param === null)
 {
     currList = CheeseService.getAll();
@@ -72,7 +95,7 @@ if (param === 'home' || param === null)
         {
             evt.preventDefault();
             console.log(`Sajt:${currButtons[i].id}`);
-            //kattntásra mit csináljon
+            //kattntásra mit csináljon 
             
         }
     }
@@ -115,6 +138,7 @@ if (param === 'home' || param === null)
         }
     }
 }
+//REGISTER PAGE
 else if(param === 'register' && !whoIsLogged())
 {
     currPage = RegisterPage.InitPage();
@@ -177,6 +201,7 @@ else if(param === 'register' && !whoIsLogged())
 
     }
 }
+//LOGIN PAGE
 else if(param === 'login' && !whoIsLogged())
 {
     currPage = LoginPage.InitPage();
@@ -221,6 +246,7 @@ else if(param === 'login' && !whoIsLogged())
         }
     }
 }
+//CART PAGE
 else if(param === 'cart' && whoIsLogged())
 {
     currList = [];
@@ -284,6 +310,7 @@ else if(param === 'cart' && whoIsLogged())
     }
     
 }
+//ORDER PAGE
 else if(param === 'order')
 {
     currList = [];
@@ -308,9 +335,13 @@ else if(param === 'order')
 
     currPage.selectedElement.onclick = function(evt)
     {
-        const auxList = OrderService.getAll().map((corder) => { return order.id; });
+        const auxList = OrderService.getAll().map((order) => { return order.id; });
         let maxId = 0;
         if (auxList.length > 0) maxId = Math.max(...auxList);
+
+        const auxList2 = OrderItemService.getAll().map((orderItem) => { return orderItem.id; });
+        let maxId2 = 0;
+        if (auxList2.length > 0) maxId2 = Math.max(...auxList2);
         
         OrderService.save(new Order(maxId+1,whoIsLogged(),input.buyername,input.address))
         CartItemService.delete(currCart);
@@ -320,6 +351,7 @@ else if(param === 'order')
             let cheese = CheeseService.getById(currList[i].id);
 
             CheeseService.save(new Cheese(cheese.id,cheese.name, cheese.description, cheese.price, cheese.quantity-currList[i].quantity, cheese.image ));
+            OrderItemService.save( new OrderItem(maxId2+1,maxId+1,cheese.id,currList[i].quantity, cheese.price * currList[i].quantity));
             currPage.Clear();
             popUp.Show(`Köszönjük a rendelését: ${UserService.getById(whoIsLogged()).username}!`);
             popUp.Hide(5000);
@@ -329,33 +361,35 @@ else if(param === 'order')
         
     }
 }
+// USER'S ORDERS PAGE
+else if(param === 'myOrders' && whoIsLogged())
+{
+    currList = [];
+    currOrders = [];
+    let item;
+    let orderItems = [];
+    currOrders = OrderService.getByUserId(whoIsLogged());
+    for (let i in currOrders)
+    {
+        item = OrderItemService.getByOrderId(currOrders[i].id);
+        orderItems.push(item[0]);
+
+ 
+        item = CheeseService.getById(OrderItemService.getById(currOrders[i].id).cheeseId);
+        currList.push(item);
+    }
+    console.log(currList);
+    console.log(orderItems);
+    currPage = OrdersPage.InitPage(currList, orderItems);
+}
+//SUCCESS PAGE
 else if(param === 'success')
 {
     currPage = SuccessPage.InitPage();
 
 }
+//ERROR PAGE
 else
 {
     currPage = EmptyPage.InitPage();
-}
-
-
-//FUNCTIONS
-function Login(userId){
-    sessionStorage.setItem('isLoggedIn',userId);
-    Nav.InitPage(whoIsLogged(), logOutFunction);
-    currPage.Show(`Üdvözöljük: ${UserService.getById(parseInt(userId)).username}`, "", "");  
-}
-
-function whoIsLogged()
-{
-    let isLogged = sessionStorage.getItem('isLoggedIn');
-    if(isLogged)
-    {
-        return parseInt(isLogged);
-    }
-    else
-    {
-        return false;
-    }
 }
