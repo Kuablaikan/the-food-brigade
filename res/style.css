@@ -229,7 +229,7 @@ table
 {
     width: 100%;
     
-    border-collapse: collapse;
+    border-collapse:collapse;
     
     
 }
@@ -257,22 +257,7 @@ td
     padding-top: 5px;
     padding-bottom: 5px;
 }
-.trMain
-{
-    border-bottom: 3px solid #ddd;
-    text-align: left;
-}
 
-
-tbody tr
-{
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-}
-tbody tr:hover
-{
-    background: #74703b
-}
 .container table a
 {
     
@@ -476,22 +461,6 @@ input[type=submit]:hover
     text-decoration: underline;
     background: #e8e06f;
 }
-
-/*#content .form {
-    background: #a39d46;
-    color: #ffffff;
-    text-align: center;
-    padding: 15px;
-    border: none;
-    border-radius: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    display: inline-block;
-    transition: background 0.3s, color 0.3s;
-    margin-top: 10px;
-    margin-left: 50%;
-    transform: translate(-50%, 0%);
-}*/
 
 #content .about {
     text-align: center;
@@ -751,3 +720,30 @@ h2
     margin-right: 20%;
     transform: translate(-3.5%, 0%);
 }
+
+.uniqueTd
+{
+    text-align: center;
+    padding:0px;
+    width: 12.5%;
+    /*border: 1px solid white;*/
+    
+}
+tr .Main
+{
+    border-bottom: 3px solid #ddd;
+    text-align: left;
+}
+
+
+tbody tr
+{
+    border-bottom: 2px solid #ddd;
+    text-align: left;
+}
+.uniqueTr
+{
+    border: 2px solid #ddd;
+    padding: 0px;
+}
+

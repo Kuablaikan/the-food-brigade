@@ -1,31 +1,44 @@
 import { Content } from "./Content.js";
 
-export function InitPage(orderList, orderItems)
+export function InitPage(cheeseList, orderItems, orderList)
 {
     const ordersPage = new Content();
     ordersPage.Init('main');
     const before = `
     <table>
-        <tr class="trMain">
+        <tr class="Main">
+            <th>Rendelés azonosító</th>
             <th>Termék neve</th>
             <th>Darabszám</th>
-            <th>Ár</th> 
-        </tr>`;
+            <th>Ár</th>
+        </tr>
+        <tr class="uniqueTr"><th></tr>`;
     let productsHTML = "";
     let html = "";
-    let sumPrice = 0;
+    let currOrderlength;
 
-    for(let i in orderItems)
+    for(let i in orderList)
     {
-        sumPrice += orderItems[i].price * orderItems[i].quantity;
-        html = `<tr>
-        <td>${orderList[i].name}</td>
-        <td>${orderItems[i].quantity} db</td>
-        <td>${orderItems[i].price * orderItems[i].quantity} Ft</td>
-        </tr>`;
+        html = "<tr>";
+        currOrderlength = orderItems[i].length;
+
+        html += `<td class="uniqueTd" rowspan="${currOrderlength}">${orderList[i].id}</td>`;
+        for (let j in orderItems[i])
+        {
+            for (let k in cheeseList)
+            {
+                if(cheeseList[k].id === orderItems[i][j].cheeseId)
+                {
+                    html += `<td>${cheeseList[k].name}</td>
+                    <td>${orderItems[i][j].quantity} db</td>
+                    <td>${orderItems[i][j].price} Ft</td>`;
+                }
+            }
+            html += `</tr>`;   
+        } 
+        html += `<tr class="uniqueTr"><th></tr>`;
         productsHTML += html;
     }
-    
     const after = `</table>`;
 
     ordersPage.Show("Rendelések","formOrder", before+productsHTML+after);

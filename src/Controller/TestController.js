@@ -356,7 +356,7 @@ else if(param === 'order')
             popUp.Show(`Köszönjük a rendelését: ${UserService.getById(whoIsLogged()).username}!`);
             popUp.Hide(5000);
 
-            
+            maxId2++;
         }
         
     }
@@ -368,19 +368,16 @@ else if(param === 'myOrders' && whoIsLogged())
     currOrders = [];
     let item;
     let orderItems = [];
+    let orderItemsGroupedByOrderId = {};
     currOrders = OrderService.getByUserId(whoIsLogged());
+    //console.log(currOrders);
     for (let i in currOrders)
     {
-        item = OrderItemService.getByOrderId(currOrders[i].id);
-        orderItems.push(item[0]);
+        orderItems[i] = OrderItemService.getByOrderId(currOrders[i].id);
 
- 
-        item = CheeseService.getById(OrderItemService.getById(currOrders[i].id).cheeseId);
-        currList.push(item);
     }
-    console.log(currList);
-    console.log(orderItems);
-    currPage = OrdersPage.InitPage(currList, orderItems);
+    currList = CheeseService.getAll();
+    currPage = OrdersPage.InitPage(currList, orderItems, currOrders);
 }
 //SUCCESS PAGE
 else if(param === 'success')
