@@ -12,28 +12,15 @@ class PopUp extends Content
 
     Hide() {
         this.page.style.opacity = 0.0;
-        setTimeout(() => { this.page.style.display = "none"; }, 250);
+        setTimeout(() => { this.page.style.display = "none"; }, 400);
     }
-
-    /*setFadeDefault()
-    {
-        this.page.style.opacity = 1;
-    }
-
-    fade()
-    {
-        this.page.style.opacity-=.1
-    }*/
-
 }
 
-export function InitPage(message){
+export function InitPage(){
 
     const popUp = new PopUp();
     console.log(document.getElementsByClassName("popUp")[0])
     popUp.InitByClass("popUp", 0);
-    //popUp.Show(message);
 
-    //(function fade(){(popUp.page.style.opacity-=.1)<0?popUp.page.style.display="none":setTimeout(fade,40)})();
     return popUp;
 }

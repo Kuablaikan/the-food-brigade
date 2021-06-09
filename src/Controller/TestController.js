@@ -23,68 +23,20 @@ let currCart;
 
 const logOutFunction = function()
 {
-    sessionStorage.removeItem('isLoggedIn');
-    
+    sessionStorage.removeItem('isLoggedIn'); 
 }
 
 const popUp = PopUp.InitPage();
-
-
-
-
-//Navigáció
-
-
 const nav = Nav.InitPage(whoIsLogged(), logOutFunction);
-/*if(whoIsLogged())
-{
-    nav.navigationBar.selectedElement.onclick = function(evt)
-    {
-        console.log(whoIsLogged());
-        Logout();
-    }
-    nav.footerNavigation.selectedElement.onclick = function(evt)
-    {
-        console.log(whoIsLogged());
-        Logout();
-    }
-}*/
-
-
 
 //TESZT
-/*
-const sajt = new Cheese(5, "Trapista sajt", "finom?", 15000, 6, "img/trapista.jpg");
-const user = new User(1, 'admin', 'asd');
-const cartItem = new CartItem(0,1,5,5);//id,userId,cheeseId,quantity
-*/
-/*
-console.log('////');
-console.log(`sajt is valid ? ${sajt.isValid()}`);
-console.log(`user is valid ? ${user.isValid()}`);
-console.log(`cartItem is valid ? ${cartItem.isValid()}`);
-console.log('////');
-*/
-
-//UserService.save(user);
 UserService.save(new User(5,'asd','asd'));
 UserService.save(new User(2,'asd2','asd2'));
-//CheeseService.save(sajt);  
 CheeseService.save( new Cheese(3, "Trapista sajt", "finom?", 15000, 2, "img/trapista.jpg") );
 CheeseService.save( new Cheese(2, "Goiuda sajt", "LOREM IPSUM DOLOR SIT ", 9999, 10, "img/gouda.jpg") );
-//CartItemService.save(cartItem);
-//CartItemService.save( new CartItem(0,1,3,5) );
-
-/*
-console.log(CartItemService.getByUserId(1));
-console.log('////');
-console.log(CartItemService.getByUserId(1)[0].cheeseId);
-console.log('////');
-console.log(CheeseService.getById(CartItemService.getByUserId(1)[0].cheeseId));
-*/
 //TESZT
 
-let param = Content.getUrlParam();
+const param = Content.getUrlParam();
 if (param === 'home' || param === null)
 {
     currList = CheeseService.getAll();
@@ -112,18 +64,20 @@ if (param === 'home' || param === null)
                 { 
                     if(cartItem.quantity < CheeseService.getById(parseInt(cartItem.cheeseId)).quantity)
                     {
+                        popUp.Show("Hozzáadva!");
+                        setTimeout(() => {popUp.Hide(); }, 1500);
                         CartItemService.save(new CartItem(cartItem.id,parseInt(whoIsLogged()),currButtons[i].id,cartItem.quantity+1));
                     }
                     else
                     {
-                        //TODO SOME FEEDBACK TO NO MORE ITEM LEFT
                         popUp.Show("Nincs több raktáron ebből a sajtból!");
                         setTimeout(() => {popUp.Hide(); }, 3000);
-                        console.log(`Elfogyot a sajt(${cartItem.cheeseId})`);
                     }
                 }
                 else
                 {
+                    popUp.Show("Hozzáadva!");
+                    setTimeout(() => {popUp.Hide(); }, 1500);
                     CartItemService.save(new CartItem(maxId+1,parseInt(whoIsLogged()),currButtons[i].id,1)); 
                 }
             }
@@ -131,21 +85,16 @@ if (param === 'home' || param === null)
             {
                 popUp.Show("Be kell jelentkezned!");
                 setTimeout(() => {popUp.Hide(); }, 3000);
-            }
-
-
-            
+            }  
         }
     }
 }
-else if(param === 'login')
+else if(param === 'login' && !whoIsLogged())
 {
-    
     currPage = LoginPage.InitPage('login');
     let loginBtn = currPage.selectedElement;
     loginBtn.onclick = function(evt)
     {
-        console.log("click");
         let input = 
                     {
                         username: document.getElementById('username').value,
@@ -157,33 +106,24 @@ else if(param === 'login')
         {
             if(input.password === login.password)
             {
-                //TODO FEEDBACK
                 popUp.Show("Sikeres bejelentkezés!");
                 setTimeout(() => {popUp.Hide(); }, 3000);
                 Login(login.id);
-                console.log("Sikeress bejelentkezés");
-
-                
             }
             else
             {
-                //TODO FEEDBACK
                 popUp.Show("Nincs ilyen felhasználó - jelszó páros!");
                 setTimeout(() => { popUp.Hide(); }, 3000);
-                console.log("Nincs ilyen felhasználó - jelszó páros!");
             }
         }
         else
         {
-            //TODO FEEDBACK
             popUp.Show("Nincs ilyen felhasználó - jelszó páros!");
             setTimeout(() => { popUp.Hide(); }, 3000);
-            //currPage.popUpMessage("Nincs ilyen felhasználó - név páros!!");
-            console.log("Nincs ilyen felhasználó - jelszó páros!");
         }
     }
 }
-else if(param === 'cart')
+else if(param === 'cart' && whoIsLogged())
 {
     currList = [];
     currCart = CartItemService.getByUserId(parseInt(whoIsLogged()));
@@ -194,7 +134,6 @@ else if(param === 'cart')
         currList.push( CheeseService.getById(currCart[i].cheeseId) );
     }
 
-    //2. string paraméterel beállítható egy navigáció vagy bármi más ha szükséges
     currPage = CartPage.InitPage(currList, currCart, "?page=success");
 
     currButtons = currPage.getButtons();
@@ -203,8 +142,6 @@ else if(param === 'cart')
         currButtons[i].onclick = function(evt)
         {
             evt.preventDefault();
-            console.log(`Clicked: ${currButtons[i].id} (CartItemId)`);
-
             CartItemService.delete(CartItemService.getById( parseInt( currButtons[i].id ) ) );
             location.reload();
         }
@@ -219,7 +156,6 @@ else
 {
     currPage = EmptyPage.InitPage();
 }
-
 
 
 //FUNCTIONS
