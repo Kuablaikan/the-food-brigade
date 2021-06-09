@@ -6,6 +6,7 @@ import * as LoginPage from "./../View/LoginPage.js";
 import * as CartPage from "./../View/CartPage.js";
 import * as SuccessPage from "./../View/SuccessPage.js";
 import * as PopUp from "./../View/popUp.js"
+import * as RegisterPage from "./../View/registerPage.js"
 
 import { CheeseService } from "./../Service/CheeseService.js";
 import { CartItemService } from "./../Service/CartItemService.js";
@@ -53,8 +54,7 @@ if (param === 'home' || param === null)
             {
                 const auxList = CartItemService.getAll().map((cartItem) => { return cartItem.id; });
                 let maxId = 0;
-                if (auxList.length > 0)
-                    maxId = Math.max(...auxList);
+                if (auxList.length > 0) maxId = Math.max(...auxList);
     
                 let cartItem = CartItemService.getByUserId( parseInt(whoIsLogged()) ).find( (cartItem) =>
                 { 
@@ -89,9 +89,74 @@ if (param === 'home' || param === null)
         }
     }
 }
+else if(param === 'register' && !whoIsLogged())
+{
+    currPage = RegisterPage.InitPage();
+    let regBtn = currPage.selectedElement;
+    regBtn.onclick = function(evt)
+    {
+        let input = 
+                    {
+                        username: document.getElementById('username').value,
+                        password: document.getElementById('password').value,
+                        rpassword: document.getElementById('rpassword').value
+                    };
+        //check two pw
+        if(input.username === "" || input.username === null)
+        {
+            popUp.Show('A "felhasználónév" mező nincs kitöltve!');
+            setTimeout(() => {popUp.Hide(); }, 3000);
+        }
+        else if(input.password === "" || input.password === null)
+        {
+            popUp.Show('A "jelszo" mező nincs kitöltve!');
+            setTimeout(() => {popUp.Hide(); }, 3000);
+        }
+        else if(input.rpassword=== "" || input.rpassword === null)
+        {
+            popUp.Show('A "jelszo mégegyszer" mező nincs kitöltve!');
+            setTimeout(() => {popUp.Hide(); }, 3000);
+        }
+        else if(input.password === input.rpassword)
+        {
+            //check username is already taken
+            console.log(UserService.getAll());
+            const userList = UserService.getAll();
+            for ( let user in userList)
+            {
+                if(userList[user].username === input.username)
+                {
+                    console.log("FOGLALT");
+                    popUp.Show("A felhasználó név foglalt!");
+                    setTimeout(() => {popUp.Hide(); }, 3000);
+                    return;
+                }
+                
+            }
+            const auxList = UserService.getAll().map((user) => { return user.id; });
+            let maxId = 0;
+            if (auxList.length > 0) maxId = Math.max(...auxList);
+
+            const newUser = new User(maxId+1,input.username,input.password);
+            UserService.save(newUser);
+
+            popUp.Show("Sikeres regisztráció!");
+            setTimeout(() => {popUp.Hide(); }, 3000);
+
+            Login(maxId+1);
+
+        }
+        else
+        {
+            popUp.Show("A két jelszó nem egyezzik!");
+            setTimeout(() => {popUp.Hide(); }, 3000);
+        }
+
+    }
+}
 else if(param === 'login' && !whoIsLogged())
 {
-    currPage = LoginPage.InitPage('login');
+    currPage = LoginPage.InitPage();
     let loginBtn = currPage.selectedElement;
     loginBtn.onclick = function(evt)
     {
@@ -104,7 +169,17 @@ else if(param === 'login' && !whoIsLogged())
 
         if(login) //check is not null
         {
-            if(input.password === login.password)
+            if(input.username === "" || input.username === null)
+            {
+                popUp.Show('A "felhasználónév" mező nincs kitöltve!');
+                setTimeout(() => {popUp.Hide(); }, 3000);
+            }
+            else if(input.password === "" || input.password === null)
+            {
+                popUp.Show('A "jelszo" mező nincs kitöltve!');
+                setTimeout(() => {popUp.Hide(); }, 3000);
+            }
+            else if(input.password === login.password)
             {
                 popUp.Show("Sikeres bejelentkezés!");
                 setTimeout(() => {popUp.Hide(); }, 3000);

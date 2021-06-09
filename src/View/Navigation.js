@@ -26,18 +26,23 @@ class Nav extends Content
     {
         navBar += `<li><a href="?page=home">Főoldal</a></li>`;
     }
+    if(param !== "register" && !isLoggedIn)
+    {
+        navBar += `<li><a href="?page=register">Register</a></li>`;
+    }
     if(param !== "login"  && !isLoggedIn)
     {
         navBar += `<li><a href="?page=login">Login</a></li>`;
-    }
-    if(isLoggedIn)
-    {
-        navBar += `<li><a name="logout" href="">Logout</a></li>`
     }
     if(param !== "cart" && isLoggedIn)
     {
         navBar += `<li><a href="?page=cart">Cart</a></li>`;
     }
+    if(isLoggedIn)
+    {
+        navBar += `<li><a name="logout" href="">Logout</a></li>`
+    }
+    
              
 
     const navigationBar = new Nav();

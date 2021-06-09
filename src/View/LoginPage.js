@@ -1,15 +1,8 @@
 import { Content } from "./Content.js";
-class LoginPage extends Content
-{
-    Show(title, className, htmlCode)
-    {
-        this.page.innerHTML = `<h2>${title}</h2><div class=${className}>${htmlCode}</div>`; 
-    }   
-}
 
 export function InitPage(){
 
-    const loginPage = new LoginPage();
+    const loginPage = new Content();
     loginPage.Init("main");
     
 
