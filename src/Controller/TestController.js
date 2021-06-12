@@ -25,6 +25,7 @@ import { OrderItem } from "../Model/OrderItem.js";
 
 //URL PARAM
 const param = Content.getUrlParam();
+const detailId = Content.getDetailsIdFromUrl();
 
 //VARS
 let currPage;
@@ -60,28 +61,39 @@ const logOutFunction = function()
 const popUp = PopUp.InitPage();
 const nav = Nav.InitPage(whoIsLogged(), logOutFunction);
 
+
 //HOME
-if (param === 'home' || param === null)
+if (param === 'home' || param === null || detailId !== null)
 {
-    currList = CheeseService.getAll();
-    currPage = MainPage.InitPage(currList);
-    currButtons = currPage.getButtons();
-
-    //TESZT
-    currPage.setElementById('test');
-    const tesztBtn = currPage.selectedElement
-    tesztBtn.onclick = function(evt)
+    if (param === 'home' || param === null && detailId === null)
     {
-        evt.preventDefault();
-        UserService.save(new User(5,'asd','asd'));
-        UserService.save(new User(2,'asd2','asd2'));
-        CheeseService.save( new Cheese(3, "Trapista sajt", "finom?", 15000, 2, "img/trapista.jpg") );
-        CheeseService.save( new Cheese(2, "Goiuda sajt", "LOREM IPSUM DOLOR SIT ", 9999, 10, "img/gouda.jpg") );
+        currList = CheeseService.getAll();
+        currPage = MainPage.InitPage(currList);
+        currButtons = currPage.getButtons();
 
-        popUp.Show("Teszt adatok feltöltve!");
-        popUp.Hide(1500);
-    } 
-    //TESZT
+        //TESZT
+        currPage.setElementById('test');
+        const tesztBtn = currPage.selectedElement
+        tesztBtn.onclick = function(evt)
+        {
+            evt.preventDefault();
+            UserService.save(new User(5,'asd','asd'));
+            UserService.save(new User(2,'asd2','asd2'));
+            CheeseService.save( new Cheese(3, "Trapista sajt", "finom?", 15000, 2, "img/trapista.jpg") );
+            CheeseService.save( new Cheese(2, "Goiuda sajt", "LOREM IPSUM DOLOR SIT ", 9999, 10, "img/gouda.jpg") );
+
+            popUp.Show("Teszt adatok feltöltve!");
+            popUp.Hide(1500);
+        } 
+        //TESZT
+    }
+    else if(detailId !== 'details')
+    {
+        currList = CheeseService.getAll();
+        currPage = offers.InitPage(currList,detailId);
+        currButtons = currPage.getButtons();
+    }
+    
 
     //Itt lesz a details hívása
     let detailButtons = [];
@@ -95,7 +107,8 @@ if (param === 'home' || param === null)
         if(detailButtons[i])detailButtons[i].onclick = function(evt)
         {
             evt.preventDefault();
-            offers.InitPage(currList, i);
+            location.href = `?details=${i}`;
+            //offers.InitPage(currList, i);
             
         }
     }
