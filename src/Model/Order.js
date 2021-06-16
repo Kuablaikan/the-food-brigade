@@ -1,4 +1,4 @@
-import { isString, isInt } from './../Utils/Validation.js';
+import { isString, isInt, isDate } from './../Utils/Validation.js';
 
 export class Order {
 

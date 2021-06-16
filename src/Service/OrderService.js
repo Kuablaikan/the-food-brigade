@@ -5,7 +5,7 @@ export class OrderService {
 
     static getAll() {
         return Service.readList("orders").map((order) => {
-            return new Order(parseInt(order.id), parseInt(order.userId), order.buyerName, order.address, Date.parse(order.created));
+            return new Order(parseInt(order.id), parseInt(order.userId), order.buyerName, order.address, new Date(order.created));
         });
     }
 
@@ -29,7 +29,7 @@ export class OrderService {
         let orders = this.getAll();
         ordersToSave.forEach((order) => {
             const index = orders.findIndex((aux) => { return aux.id === order.id; });
-            const orderObj = new Order(parseInt(order.id), parseInt(order.userId), order.buyerName, order.address, Date.parse(order.created));
+            const orderObj = new Order(parseInt(order.id), parseInt(order.userId), order.buyerName, order.address, new Date(order.created));
             if (index >= 0)
                 orders[index] = orderObj;
             else
