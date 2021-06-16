@@ -82,13 +82,4 @@ export class Content {
 
         return param;
     }
-
-    static getDetailsIdFromUrl()
-    {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        let param = urlParams.get('details');
-
-        return param;
-    }
 }
