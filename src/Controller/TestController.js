@@ -99,17 +99,6 @@ if (param === 'home' || param === null || detailId !== null)
             CheeseService.save( new Cheese(2, "Goiuda sajt", "LOREM IPSUM DOLOR SIT ", 9999, 10, "img/gouda.jpg") );
 >>>>>>> main
 
-            popUp.Show("Teszt adatok feltöltve!");
-            popUp.Hide(1500);
-        } 
-        //TESZT
-    }
-    else if(detailId !== 'details')
-    {
-        currList = CheeseService.getAll();
-        currPage = offers.InitPage(currList,detailId);
-        currButtons = currPage.getButtons();
-    }
 
     //Itt lesz a details hívása
     let detailButtons = [];
