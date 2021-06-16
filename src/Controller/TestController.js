@@ -65,7 +65,6 @@ const logOutFunction = function()
 const popUp = PopUp.InitPage();
 const nav = Nav.InitPage(whoIsLogged(), logOutFunction);
 
-
 //HOME
 if (param === 'home' || param === null || detailId !== null)
 {
@@ -111,7 +110,6 @@ if (param === 'home' || param === null || detailId !== null)
         currPage = offers.InitPage(currList,detailId);
         currButtons = currPage.getButtons();
     }
-    
 
     //Itt lesz a details hívása
     let detailButtons = [];
