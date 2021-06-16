@@ -61,17 +61,8 @@ const popUp = PopUp.InitPage();
 const nav = Nav.InitPage(whoIsLogged(), logOutFunction);
 
 //HOME
-if (param === 'home' || param === null)
 if (param === 'home' || param === null || detailId !== null)
 {
-    currList = CheeseService.getAll();
-    currPage = MainPage.InitPage(currList);
-    currButtons = currPage.getButtons();
-
-    //TESZT
-    currPage.setElementById('test');
-    const tesztBtn = currPage.selectedElement
-    tesztBtn.onclick = function(evt)
     if (param === 'home' || param === null && detailId === null)
     {
         evt.preventDefault();
@@ -86,10 +77,6 @@ if (param === 'home' || param === null || detailId !== null)
         CheeseService.save( new Cheese(10, "Trapista48 sajt", "finom?", 15000, 2, "img/trapista.jpg") );
         CheeseService.save( new Cheese(11, "Goiuda7 sajt", "LOREM IPSUM DOLOR SIT ", 9999, 10, "img/gouda.jpg") );
 
-        popUp.Show("Teszt adatok feltöltve!");
-        popUp.Hide(1500);
-    } 
-    //TESZT
 
     //Itt lesz a details hívása
     let detailButtons = [];
