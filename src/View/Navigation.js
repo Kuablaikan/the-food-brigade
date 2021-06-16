@@ -44,6 +44,10 @@ class Nav extends Content
     }
     if(isLoggedIn)
     {
+        navBar += `<li><a name="myStat" href="?page=mystat">My Statistics</a></li>`
+    }
+    if(isLoggedIn)
+    {
         navBar += `<li><a name="logout" href="">Logout</a></li>`
     }
     
