@@ -9,7 +9,11 @@ import * as PopUp from "./../View/popUp.js"
 import * as RegisterPage from "./../View/registerPage.js"
 import * as OrderPage from "./../View/orderPage.js";
 import * as OrdersPage from "./../View/userOrdersPage.js";
+<<<<<<< HEAD
 import * as StatPage from "./../View/StatPage.js";
+=======
+import * as offers from "./../View/offers.js";
+>>>>>>> main
 
 import { CheeseService } from "./../Service/CheeseService.js";
 import { CartItemService } from "./../Service/CartItemService.js";
@@ -25,6 +29,7 @@ import { OrderItem } from "../Model/OrderItem.js";
 
 //URL PARAM
 const param = Content.getUrlParam();
+const detailId = Content.getDetailsIdFromUrl();
 
 //VARS
 let currPage;
@@ -65,6 +70,7 @@ if (param === 'home' || param === null || detailId !== null)
 {
     if (param === 'home' || param === null && detailId === null)
     {
+<<<<<<< HEAD
         evt.preventDefault();
         UserService.save(new User(5,'asd','asd'));
         UserService.save(new User(2,'asd2','asd2'));
@@ -76,6 +82,22 @@ if (param === 'home' || param === null || detailId !== null)
         CheeseService.save( new Cheese(9, "Goiuda10 sajt", "LOREM IPSUM DOLOR SIT ", 9999, 10, "img/gouda.jpg") );
         CheeseService.save( new Cheese(10, "Trapista48 sajt", "finom?", 15000, 2, "img/trapista.jpg") );
         CheeseService.save( new Cheese(11, "Goiuda7 sajt", "LOREM IPSUM DOLOR SIT ", 9999, 10, "img/gouda.jpg") );
+=======
+        currList = CheeseService.getAll();
+        currPage = MainPage.InitPage(currList);
+        currButtons = currPage.getButtons();
+
+        //TESZT
+        currPage.setElementById('test');
+        const tesztBtn = currPage.selectedElement
+        tesztBtn.onclick = function(evt)
+        {
+            evt.preventDefault();
+            UserService.save(new User(5,'asd','asd'));
+            UserService.save(new User(2,'asd2','asd2'));
+            CheeseService.save( new Cheese(3, "Trapista sajt", "finom?", 15000, 2, "img/trapista.jpg") );
+            CheeseService.save( new Cheese(2, "Goiuda sajt", "LOREM IPSUM DOLOR SIT ", 9999, 10, "img/gouda.jpg") );
+>>>>>>> main
 
 
     //Itt lesz a details hívása
@@ -92,6 +114,8 @@ if (param === 'home' || param === null || detailId !== null)
             evt.preventDefault();
             console.log(`Sajt:${currButtons[i].id}`);
             //kattntásra mit csináljon 
+            location.href = `?details=${i}`;
+            //offers.InitPage(currList, i);
             
         }
     }
