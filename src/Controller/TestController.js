@@ -340,14 +340,15 @@ else if(param === 'order')
 
     currPage = OrderPage.InitPage(currList);
 
-    let input = 
-    {
-        buyername: document.getElementById('buyername').value,
-        address: document.getElementById('address').value
-    };
 
     currPage.selectedElement.onclick = function(evt)
     {
+        let input = 
+        {
+            buyername: document.getElementById('buyername').value,
+            address: document.getElementById('address').value
+        };
+
         const auxList = OrderService.getAll().map((order) => { return order.id; });
         let maxId = 0;
         if (auxList.length > 0) maxId = Math.max(...auxList);
@@ -356,7 +357,7 @@ else if(param === 'order')
         let maxId2 = 0;
         if (auxList2.length > 0) maxId2 = Math.max(...auxList2);
         
-        OrderService.save(new Order(maxId+1,whoIsLogged(),input.buyername,input.address))
+        OrderService.save(new Order(maxId + 1, whoIsLogged(), input.buyername, input.address)); console.log(input.buyername);
         CartItemService.delete(currCart);
 
         for(let i in currList)
