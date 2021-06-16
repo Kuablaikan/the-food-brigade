@@ -62,6 +62,7 @@ const nav = Nav.InitPage(whoIsLogged(), logOutFunction);
 
 //HOME
 if (param === 'home' || param === null)
+if (param === 'home' || param === null || detailId !== null)
 {
     currList = CheeseService.getAll();
     currPage = MainPage.InitPage(currList);
@@ -71,6 +72,7 @@ if (param === 'home' || param === null)
     currPage.setElementById('test');
     const tesztBtn = currPage.selectedElement
     tesztBtn.onclick = function(evt)
+    if (param === 'home' || param === null && detailId === null)
     {
         evt.preventDefault();
         UserService.save(new User(5,'asd','asd'));
