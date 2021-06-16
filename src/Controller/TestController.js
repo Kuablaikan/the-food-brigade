@@ -9,6 +9,7 @@ import * as PopUp from "./../View/popUp.js"
 import * as RegisterPage from "./../View/registerPage.js"
 import * as OrderPage from "./../View/orderPage.js";
 import * as OrdersPage from "./../View/userOrdersPage.js";
+import * as StatPage from "./../View/StatPage.js";
 
 import { CheeseService } from "./../Service/CheeseService.js";
 import { CartItemService } from "./../Service/CartItemService.js";
@@ -360,6 +361,12 @@ else if(param === 'order')
         }
         
     }
+}
+//USER'S STAT PAGE
+else if(param === 'mystat' && whoIsLogged())
+{
+    
+    currPage = StatPage.InitPage();
 }
 // USER'S ORDERS PAGE
 else if(param === 'myOrders' && whoIsLogged())
