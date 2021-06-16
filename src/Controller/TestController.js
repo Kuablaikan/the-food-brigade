@@ -123,8 +123,6 @@ if (param === 'home' || param === null || detailId !== null)
         if(detailButtons[i])detailButtons[i].onclick = function(evt)
         {
             evt.preventDefault();
-            console.log(`Sajt:${currButtons[i].id}`);
-            //kattntásra mit csináljon 
             location.href = `?details=${i}`;
             //offers.InitPage(currList, i);
             
