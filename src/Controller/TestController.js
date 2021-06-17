@@ -100,7 +100,7 @@ if (param === 'home' || param === null)
         if(detailButtons[i])detailButtons[i].onclick = function(evt)
         {
             evt.preventDefault();
-            location.href = `?page=details&id=${i}`;
+            location.href = `?page=details&id=${currButtons[i].id}`;
             //offers.InitPage(currList, i);
             
         }
@@ -149,6 +149,26 @@ else if (param === 'details')
     currList = CheeseService.getAll();
     currPage = offers.InitPage(currList,detailId);
     currButtons = currPage.getButtons();
+    console.log(currButtons);
+
+    //Itt lesz a details hívása
+    let detailButtons = [];
+    let btn;
+    for (let i= 0; i < currButtons.length; i++)
+    {
+        currPage.setElementByName(currButtons[i].id,0);
+        btn = currPage.selectedElement;
+        detailButtons.push(btn);
+        
+        if(detailButtons[i])detailButtons[i].onclick = function(evt)
+        {
+            evt.preventDefault();
+            location.href = `?page=details&id=${currButtons[i].id}`;
+            //offers.InitPage(currList, i);
+            
+        }
+    }
+    //
 }
 //REGISTER PAGE
 else if(param === 'register' && !whoIsLogged())

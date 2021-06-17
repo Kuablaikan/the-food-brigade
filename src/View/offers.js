@@ -7,6 +7,9 @@ class offers extends Content {
 }
 
 export function InitPage(cheeseList, chosen) {
+
+    chosen = cheeseList.findIndex((cheese) => { return cheese.id === parseInt(chosen); });
+
     const before = `<div class="product">`;
     const after = `</div>`;
     const beforeu = `<ul class="products">`;
