@@ -80,16 +80,16 @@ if (param === 'home' || param === null || detailId !== null)
             evt.preventDefault();
             UserService.save(new User(5,'asd','asd'));
             UserService.save(new User(2,'asd2','asd2'));
-            CheeseService.save( new Cheese(1, "Trapista sajt", "finom?", 15000, 20, "img/trapista.jpg") );
+            CheeseService.save( new Cheese(1, "Trapista sajt", "finom?", 15000, 230, "img/trapista.jpg") );
             CheeseService.save( new Cheese(2, "Goiuda sajt", "LOREM IPSUM DOLOR SIT ", 9999, 100, "img/gouda.jpg") );
-            CheeseService.save( new Cheese(3, "Trapista sajt", "finom?", 15000, 2, "img/trapista.jpg") );
+            CheeseService.save( new Cheese(3, "Trapista sajt", "finom?", 15000, 200, "img/trapista.jpg") );
             CheeseService.save( new Cheese(4, "Goiuda sajt", "LOREM IPSUM DOLOR SIT ", 9999, 100, "img/gouda.jpg") );
             CheeseService.save( new Cheese(5, "Goiuda sajt5", "LOREM IPSUM DOLOR SIT ", 99999, 100, "img/gouda.jpg") );
-            CheeseService.save( new Cheese(6, "Trapista sajt", "finom?", 15000, 2, "img/trapista.jpg") );
+            CheeseService.save( new Cheese(6, "Trapista sajt", "finom?", 15000, 200, "img/trapista.jpg") );
             CheeseService.save( new Cheese(7, "Goiuda2 sajt", "LOREM IPSUM DOLOR SIT ", 9999, 100, "img/gouda.jpg") );
-            CheeseService.save( new Cheese(8, "Trapista3 sajt", "finom?", 15000, 2, "img/trapista.jpg") );
+            CheeseService.save( new Cheese(8, "Trapista3 sajt", "finom?", 15000, 200, "img/trapista.jpg") );
             CheeseService.save( new Cheese(9, "Goiuda10 sajt", "LOREM IPSUM DOLOR SIT ", 9999, 150, "img/gouda.jpg") );
-            CheeseService.save( new Cheese(10, "Trapista48 sajt", "finom?", 15000, 2, "img/trapista.jpg") );
+            CheeseService.save( new Cheese(10, "Trapista48 sajt", "finom?", 15000, 200, "img/trapista.jpg") );
             CheeseService.save( new Cheese(11, "Goiuda7 sajt", "LOREM IPSUM DOLOR SIT ", 9999, 100, "img/gouda.jpg") );
 
             popUp.Show("Teszt adatok feltöltve!");
@@ -386,8 +386,8 @@ else if(param === 'order')
     }
 }
 
-//USER'S STAT PAGE
-else if(param === 'mystat' && whoIsLogged())
+//STAT PAGE
+else if(param === 'stat')
 {
     
     currPage = StatPage.InitPage();
