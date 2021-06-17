@@ -169,6 +169,43 @@ else if (param === 'details')
         }
     }
     //
+    //kosárba buttons
+    for (let i = 0; i < currButtons.length; i++)
+    {
+        currButtons[i].onclick = function(evt)
+        {
+            evt.preventDefault();
+            
+            if(whoIsLogged())
+            {
+                const auxList = CartItemService.getAll().map((cartItem) => { return cartItem.id; });
+                let maxId = 0;
+                if (auxList.length > 0) maxId = Math.max(...auxList);
+    
+                let cartItem = CartItemService.getByUserId( parseInt(whoIsLogged()) ).find( (cartItem) =>
+                { 
+                    return cartItem.cheeseId === parseInt(currButtons[i].id); 
+                });
+                if (cartItem)
+                { 
+                    popUp.Show("Hozzáadva!");
+                    popUp.Hide(1500);
+                    CartItemService.save(new CartItem(cartItem.id,parseInt(whoIsLogged()),currButtons[i].id,cartItem.quantity+1));
+                }
+                else
+                {
+                    popUp.Show("Hozzáadva!");
+                    popUp.Hide(1500);
+                    CartItemService.save(new CartItem(maxId+1,parseInt(whoIsLogged()),currButtons[i].id,1)); 
+                }
+            }
+            else
+            {
+                popUp.Show("Be kell jelentkezned!");
+                popUp.Hide(3000);
+            }  
+        }
+    }
 }
 //REGISTER PAGE
 else if(param === 'register' && !whoIsLogged())

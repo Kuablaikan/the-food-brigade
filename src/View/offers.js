@@ -34,13 +34,13 @@ export function InitPage(cheeseList, chosen) {
     productsHTML += product;
     productsHTML += beforeu;
     for (let i in cheeseList) {
-        if (cheeseList[i].quantity >= 0 && (i == randOfferF || i == randOfferS || i == randOfferT) && i != chosen)
-            continue;
+        if (cheeseList[i].quantity >= 0 && (i == randOfferF || i == randOfferS || i == randOfferT) && i != chosen){
         html = `<li class="preview" style="color: #000000; font-size: 25px;"><img  name="${cheeseList[i].id}" src=${cheeseList[i].image} alt="${cheeseList[i].name} -ról készült kép"><div><h3>${cheeseList[i].name}</h3>
         <p>${cheeseList[i].description}</p><h4>Ár: ${cheeseList[i].price} HUF</h4></div><input id=${cheeseList[i].id} type="submit" value="Kosárba" style="display:${sessionStorage.getItem('isLoggedIn') ? "inline-block" : "none"}"></li>`;
         productsHTML += html;
 
         buttonIds[i] = cheeseList[i].id;
+        }
     }
      
     productsHTML += afteru;
