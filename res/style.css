@@ -746,4 +746,8 @@ tbody tr
     border: 2px solid #ddd;
     padding: 0px;
 }
+canvas
+{
+    algin:center;
+}
 
