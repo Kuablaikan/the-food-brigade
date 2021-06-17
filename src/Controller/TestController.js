@@ -63,37 +63,27 @@ const nav = Nav.InitPage(whoIsLogged(), logOutFunction);
 
 
 //HOME
-if (param === 'home' || param === null || detailId !== null)
+if (param === 'home' || param === null)
 {
-    if (param === 'home' || param === null && detailId === null)
-    {
-        currList = CheeseService.getAll();
-        currPage = MainPage.InitPage(currList);
-        currButtons = currPage.getButtons();
+    currList = CheeseService.getAll();
+    currPage = MainPage.InitPage(currList);
+    currButtons = currPage.getButtons();
 
-        //TESZT
-        currPage.setElementById('test');
-        const tesztBtn = currPage.selectedElement
-        tesztBtn.onclick = function(evt)
-        {
-            evt.preventDefault();
-            UserService.save(new User(5,'asd','asd'));
-            UserService.save(new User(2,'asd2','asd2'));
-            CheeseService.save( new Cheese(3, "Trapista sajt", "finom?", 15000, 2, "img/trapista.jpg") );
-            CheeseService.save( new Cheese(2, "Goiuda sajt", "LOREM IPSUM DOLOR SIT ", 9999, 10, "img/gouda.jpg") );
-
-            popUp.Show("Teszt adatok feltöltve!");
-            popUp.Hide(1500);
-        } 
-        //TESZT
-    }
-    else if(detailId !== 'details')
+    //TESZT
+    currPage.setElementById('test');
+    const tesztBtn = currPage.selectedElement
+    tesztBtn.onclick = function(evt)
     {
-        currList = CheeseService.getAll();
-        currPage = offers.InitPage(currList,detailId);
-        currButtons = currPage.getButtons();
-    }
-    
+        evt.preventDefault();
+        UserService.save(new User(5,'asd','asd'));
+        UserService.save(new User(2,'asd2','asd2'));
+        CheeseService.save( new Cheese(3, "Trapista sajt", "finom?", 15000, 2, "img/trapista.jpg") );
+        CheeseService.save( new Cheese(2, "Goiuda sajt", "LOREM IPSUM DOLOR SIT ", 9999, 10, "img/gouda.jpg") );
+
+        popUp.Show("Teszt adatok feltöltve!");
+        popUp.Hide(1500);
+    } 
+    //TESZT
 
     //Itt lesz a details hívása
     let detailButtons = [];
@@ -107,7 +97,7 @@ if (param === 'home' || param === null || detailId !== null)
         if(detailButtons[i])detailButtons[i].onclick = function(evt)
         {
             evt.preventDefault();
-            location.href = `?details=${i}`;
+            location.href = `?page=details&id=${i}`;
             //offers.InitPage(currList, i);
             
         }
@@ -150,6 +140,12 @@ if (param === 'home' || param === null || detailId !== null)
             }  
         }
     }
+}
+else if (param === 'details')
+{
+    currList = CheeseService.getAll();
+    currPage = offers.InitPage(currList,detailId);
+    currButtons = currPage.getButtons();
 }
 //REGISTER PAGE
 else if(param === 'register' && !whoIsLogged())
