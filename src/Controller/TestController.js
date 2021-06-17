@@ -1,7 +1,7 @@
-import { Content } from "./../View/content.js";
+import { Content } from "./../View/Content.js";
 import * as Nav from "./../View/Navigation.js";
 import * as MainPage from "./../View/MainPage.js";
-import * as EmptyPage from "./../View/EmptyPage.js";
+import * as EmptyPage from "./../View/emptyPage.js";
 import * as LoginPage from "./../View/LoginPage.js";
 import * as CartPage from "./../View/CartPage.js";
 import * as SuccessPage from "./../View/SuccessPage.js";
