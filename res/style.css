@@ -375,6 +375,7 @@ list-style: none;
     list-style: none;
     border-top-left-radius:15px; 
     border-bottom-left-radius: 15px;
+    cursor: pointer;
 }
 #content .products .preview > div
 {
