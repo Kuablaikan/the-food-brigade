@@ -78,6 +78,8 @@ if (param === 'home' || param === null)
         UserService.save(new User(5,'asd','asd'));
         UserService.save(new User(2,'asd2','asd2'));
         CheeseService.save( new Cheese(3, "Trapista sajt", "finom?", 15000, 2, "img/trapista.jpg") );
+        CheeseService.save( new Cheese(1, "Chedar sajt", "finom?", 12000, 200, "img/chedar.jpg") );
+        CheeseService.save( new Cheese(4, "Kék sajt", "finom?", 10000, 10, "img/bluecheese.jpg") );
         CheeseService.save( new Cheese(2, "Goiuda sajt", "LOREM IPSUM DOLOR SIT ", 9999, 10, "img/gouda.jpg") );
 
         popUp.Show("Teszt adatok feltöltve!");
