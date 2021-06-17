@@ -375,6 +375,10 @@ list-style: none;
     list-style: none;
     border-top-left-radius:15px; 
     border-bottom-left-radius: 15px;
+<<<<<<< Updated upstream
+=======
+    cursor: pointer;
+>>>>>>> Stashed changes
 }
 #content .products .preview > div
 {
@@ -746,4 +750,11 @@ tbody tr
     border: 2px solid #ddd;
     padding: 0px;
 }
+<<<<<<< Updated upstream
+=======
+canvas
+{
+    algin:center;
+}
+>>>>>>> Stashed changes
 

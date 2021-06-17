@@ -87,7 +87,11 @@ export class Content {
     {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
+<<<<<<< Updated upstream
         let param = urlParams.get('details');
+=======
+        let param = urlParams.get('id');
+>>>>>>> Stashed changes
 
         return param;
     }

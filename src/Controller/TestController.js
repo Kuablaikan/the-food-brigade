@@ -1,7 +1,14 @@
+<<<<<<< Updated upstream
 import { Content } from "./../View/content.js";
 import * as Nav from "./../View/Navigation.js";
 import * as MainPage from "./../View/MainPage.js";
 import * as EmptyPage from "./../View/EmptyPage.js";
+=======
+import { Content } from "./../View/Content.js";
+import * as Nav from "./../View/Navigation.js";
+import * as MainPage from "./../View/MainPage.js";
+import * as EmptyPage from "./../View/emptyPage.js";
+>>>>>>> Stashed changes
 import * as LoginPage from "./../View/LoginPage.js";
 import * as CartPage from "./../View/CartPage.js";
 import * as SuccessPage from "./../View/SuccessPage.js";
@@ -10,6 +17,10 @@ import * as RegisterPage from "./../View/registerPage.js"
 import * as OrderPage from "./../View/orderPage.js";
 import * as OrdersPage from "./../View/userOrdersPage.js";
 import * as offers from "./../View/offers.js";
+<<<<<<< Updated upstream
+=======
+import * as StatPage from "./../View/StatPage.js";
+>>>>>>> Stashed changes
 
 import { CheeseService } from "./../Service/CheeseService.js";
 import { CartItemService } from "./../Service/CartItemService.js";
@@ -63,6 +74,7 @@ const nav = Nav.InitPage(whoIsLogged(), logOutFunction);
 
 
 //HOME
+<<<<<<< Updated upstream
 if (param === 'home' || param === null || detailId !== null)
 {
     if (param === 'home' || param === null && detailId === null)
@@ -94,6 +106,31 @@ if (param === 'home' || param === null || detailId !== null)
         currButtons = currPage.getButtons();
     }
     
+=======
+if (param === 'home' || param === null)
+{
+    currList = CheeseService.getAll();
+    currPage = MainPage.InitPage(currList);
+    currButtons = currPage.getButtons();
+
+    //TESZT
+    currPage.setElementById('test');
+    const tesztBtn = currPage.selectedElement
+    tesztBtn.onclick = function(evt)
+    {
+        evt.preventDefault();
+        UserService.save(new User(5,'asd','asd'));
+        UserService.save(new User(2,'asd2','asd2'));
+        CheeseService.save( new Cheese(3, "Trapista sajt", "finom?", 15000, 2, "img/trapista.jpg") );
+        CheeseService.save( new Cheese(1, "Chedar sajt", "finom?", 12000, 200, "img/chedar.jpg") );
+        CheeseService.save( new Cheese(4, "Kék sajt", "finom?", 10000, 10, "img/bluecheese.jpg") );
+        CheeseService.save( new Cheese(2, "Goiuda sajt", "LOREM IPSUM DOLOR SIT ", 9999, 10, "img/gouda.jpg") );
+
+        popUp.Show("Teszt adatok feltöltve!");
+        popUp.Hide(1500);
+    } 
+    //TESZT
+>>>>>>> Stashed changes
 
     //Itt lesz a details hívása
     let detailButtons = [];
@@ -107,7 +144,11 @@ if (param === 'home' || param === null || detailId !== null)
         if(detailButtons[i])detailButtons[i].onclick = function(evt)
         {
             evt.preventDefault();
+<<<<<<< Updated upstream
             location.href = `?details=${i}`;
+=======
+            location.href = `?page=details&id=${currButtons[i].id}`;
+>>>>>>> Stashed changes
             //offers.InitPage(currList, i);
             
         }
@@ -151,6 +192,35 @@ if (param === 'home' || param === null || detailId !== null)
         }
     }
 }
+<<<<<<< Updated upstream
+=======
+else if (param === 'details')
+{
+    currList = CheeseService.getAll();
+    currPage = offers.InitPage(currList,detailId);
+    currButtons = currPage.getButtons();
+    console.log(currButtons);
+
+    //Itt lesz a details hívása
+    let detailButtons = [];
+    let btn;
+    for (let i= 0; i < currButtons.length; i++)
+    {
+        currPage.setElementByName(currButtons[i].id,0);
+        btn = currPage.selectedElement;
+        detailButtons.push(btn);
+        
+        if(detailButtons[i])detailButtons[i].onclick = function(evt)
+        {
+            evt.preventDefault();
+            location.href = `?page=details&id=${currButtons[i].id}`;
+            //offers.InitPage(currList, i);
+            
+        }
+    }
+    //
+}
+>>>>>>> Stashed changes
 //REGISTER PAGE
 else if(param === 'register' && !whoIsLogged())
 {
@@ -340,6 +410,7 @@ else if(param === 'order')
 
     currPage = OrderPage.InitPage(currList);
 
+<<<<<<< Updated upstream
     let input = 
     {
         buyername: document.getElementById('buyername').value,
@@ -348,6 +419,17 @@ else if(param === 'order')
 
     currPage.selectedElement.onclick = function(evt)
     {
+=======
+
+    currPage.selectedElement.onclick = function(evt)
+    {
+        let input = 
+        {
+            buyername: document.getElementById('buyername').value,
+            address: document.getElementById('address').value
+        };
+
+>>>>>>> Stashed changes
         const auxList = OrderService.getAll().map((order) => { return order.id; });
         let maxId = 0;
         if (auxList.length > 0) maxId = Math.max(...auxList);
@@ -356,7 +438,11 @@ else if(param === 'order')
         let maxId2 = 0;
         if (auxList2.length > 0) maxId2 = Math.max(...auxList2);
         
+<<<<<<< Updated upstream
         OrderService.save(new Order(maxId+1,whoIsLogged(),input.buyername,input.address))
+=======
+        OrderService.save(new Order(maxId + 1, whoIsLogged(), input.buyername, input.address));
+>>>>>>> Stashed changes
         CartItemService.delete(currCart);
 
         for(let i in currList)
@@ -374,6 +460,17 @@ else if(param === 'order')
         
     }
 }
+<<<<<<< Updated upstream
+=======
+
+//STAT PAGE
+else if(param === 'stat')
+{
+    
+    currPage = StatPage.InitPage();
+}
+
+>>>>>>> Stashed changes
 // USER'S ORDERS PAGE
 else if(param === 'myOrders' && whoIsLogged())
 {

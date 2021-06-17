@@ -42,6 +42,13 @@ class Nav extends Content
     {
         navBar += `<li><a name="myOrders" href="?page=myOrders">My orders</a></li>`
     }
+<<<<<<< Updated upstream
+=======
+    if (param !== "stat")
+    {
+        navBar += `<li><a name="Stat" href="?page=stat">Statistics</a></li>`
+    }
+>>>>>>> Stashed changes
     if(isLoggedIn)
     {
         navBar += `<li><a name="logout" href="">Logout</a></li>`

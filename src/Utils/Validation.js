@@ -9,3 +9,10 @@ export function isInt(obj) {
 export function isFloat(obj) {
     return typeof obj === "number" && obj !== null && !isNaN(obj) && isFinite(obj);
 }
+<<<<<<< Updated upstream
+=======
+
+export function isDate(obj) {
+    return typeof obj === "object" && obj !== null && !isNaN(Date.parse(obj));
+}
+>>>>>>> Stashed changes
