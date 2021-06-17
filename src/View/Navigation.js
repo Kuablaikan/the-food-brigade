@@ -42,6 +42,10 @@ class Nav extends Content
     {
         navBar += `<li><a name="myOrders" href="?page=myOrders">My orders</a></li>`
     }
+    if(param !== "login"  && !isLoggedIn)
+    {
+        navBar += `<li><a name="Stat" href="?page=stat">Statistics</a></li>`
+    }
     if(isLoggedIn)
     {
         navBar += `<li><a name="logout" href="">Logout</a></li>`
